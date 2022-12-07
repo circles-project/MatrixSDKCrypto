@@ -5,18 +5,18 @@ import PackageDescription
 
 let package = Package(
     name: "MatrixSDKCrypto",
+    platforms: [
+        .iOS(.v15),
+        .tvOS(.v15),
+        .macCatalyst(.v15),
+        .macOS(.v12)
+    ],
     products: [
-        // Products define the executables and libraries a package produces, and make them visible to other packages.
-        .library(
-            name: "MatrixSDKCrypto",
-            targets: ["MatrixSDKCryptoFFI"]),
+        .library(name: "MatrixSDKCrypto", targets: ["MatrixSDKCryptoFFI"]),
     ],
     dependencies: [
-        // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
     ],
     targets: [
-        //.binaryTarget(name: "MatrixSDKCryptoFFI", path: "./Sources/MatrixSDKCryptoFFI.xcframework"),
         .binaryTarget(
             name: "MatrixSDKCryptoFFI",
             url: "https://github.com/matrix-org/matrix-rust-sdk/releases/download/matrix-sdk-crypto-ffi-0.1.5/MatrixSDKCryptoFFI.zip",
