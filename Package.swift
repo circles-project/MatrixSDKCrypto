@@ -3,9 +3,9 @@
 
 import PackageDescription
 
-let version = "0.1.5"
+let version = "0.1.6"
 let url = "https://github.com/matrix-org/matrix-rust-sdk/releases/download/matrix-sdk-crypto-ffi-\(version)/MatrixSDKCryptoFFI.zip"
-let checksum = "1c662db291ea422ca3c8079ddb790df293f3caa839ede6b03b895f999347f358"
+let checksum = "1607dd7f64276eec22fa6c741825d9e788b93d15b656069f554cdbd4d133afdf"
 
 let package = Package(
     name: "MatrixSDKCrypto",
