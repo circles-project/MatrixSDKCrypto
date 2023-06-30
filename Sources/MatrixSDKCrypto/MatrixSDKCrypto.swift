@@ -19,13 +19,13 @@ fileprivate extension RustBuffer {
     }
 
     static func from(_ ptr: UnsafeBufferPointer<UInt8>) -> RustBuffer {
-        try! rustCall { ffi_matrix_sdk_crypto_ffi_a24c_rustbuffer_from_bytes(ForeignBytes(bufferPointer: ptr), $0) }
+        try! rustCall { ffi_matrix_sdk_crypto_ffi_f611_rustbuffer_from_bytes(ForeignBytes(bufferPointer: ptr), $0) }
     }
 
     // Frees the buffer in place.
     // The buffer must not be used after this is called.
     func deallocate() {
-        try! rustCall { ffi_matrix_sdk_crypto_ffi_a24c_rustbuffer_free(self, $0) }
+        try! rustCall { ffi_matrix_sdk_crypto_ffi_f611_rustbuffer_free(self, $0) }
     }
 }
 
@@ -406,8 +406,8 @@ fileprivate struct FfiConverterString: FfiConverter {
 
 
 public protocol BackupKeysProtocol {
-    func `backupVersion`()  -> String
-    func `recoveryKey`()  -> BackupRecoveryKey
+    func `backupVersion`()   -> String
+    func `recoveryKey`()   -> BackupRecoveryKey
     
 }
 
@@ -428,28 +428,31 @@ public class BackupKeys: BackupKeysProtocol {
     
 
     
+    
+
     public func `backupVersion`()  -> String {
-        return try! FfiConverterString.lift(
-            try!
+        return try!  FfiConverterString.lift(
+            try! 
     rustCall() {
     
-    _uniffi_matrix_sdk_crypto_ffi_impl_BackupKeys_backup_version_1e95(self.pointer, $0
+    _uniffi_matrix_sdk_crypto_ffi_impl_BackupKeys_backup_version_6a86(self.pointer, $0
     )
 }
         )
     }
+
     public func `recoveryKey`()  -> BackupRecoveryKey {
-        return try! FfiConverterTypeBackupRecoveryKey.lift(
-            try!
+        return try!  FfiConverterTypeBackupRecoveryKey.lift(
+            try! 
     rustCall() {
     
-    _uniffi_matrix_sdk_crypto_ffi_impl_BackupKeys_recovery_key_d112(self.pointer, $0
+    _uniffi_matrix_sdk_crypto_ffi_impl_BackupKeys_recovery_key_2567(self.pointer, $0
     )
 }
         )
     }
-    
 }
+
 
 
 public struct FfiConverterTypeBackupKeys: FfiConverter {
@@ -483,11 +486,20 @@ public struct FfiConverterTypeBackupKeys: FfiConverter {
 }
 
 
+public func FfiConverterTypeBackupKeys_lift(_ pointer: UnsafeMutableRawPointer) throws -> BackupKeys {
+    return try FfiConverterTypeBackupKeys.lift(pointer)
+}
+
+public func FfiConverterTypeBackupKeys_lower(_ value: BackupKeys) -> UnsafeMutableRawPointer {
+    return FfiConverterTypeBackupKeys.lower(value)
+}
+
+
 public protocol BackupRecoveryKeyProtocol {
-    func `decryptV1`(`ephemeralKey`: String, `mac`: String, `ciphertext`: String) throws -> String
-    func `megolmV1PublicKey`()  -> MegolmV1BackupKey
-    func `toBase58`()  -> String
-    func `toBase64`()  -> String
+    func `decryptV1`(`ephemeralKey`: String, `mac`: String, `ciphertext`: String)  throws -> String
+    func `megolmV1PublicKey`()   -> MegolmV1BackupKey
+    func `toBase58`()   -> String
+    func `toBase64`()   -> String
     
 }
 
@@ -501,68 +513,63 @@ public class BackupRecoveryKey: BackupRecoveryKeyProtocol {
         self.pointer = pointer
     }
     public convenience init()  {
-        self.init(unsafeFromRawPointer: try!
-    
-    rustCall() {
-    
-    matrix_sdk_crypto_ffi_a24c_BackupRecoveryKey_new($0)
+        self.init(unsafeFromRawPointer: try! rustCall() {
+    matrix_sdk_crypto_ffi_f611_BackupRecoveryKey_new($0)
 })
     }
 
     deinit {
-        try! rustCall { ffi_matrix_sdk_crypto_ffi_a24c_BackupRecoveryKey_object_free(pointer, $0) }
+        try! rustCall { ffi_matrix_sdk_crypto_ffi_f611_BackupRecoveryKey_object_free(pointer, $0) }
     }
 
     
+
     public static func `fromPassphrase`(`passphrase`: String, `salt`: String, `rounds`: Int32)  -> BackupRecoveryKey {
-        return BackupRecoveryKey(unsafeFromRawPointer: try!
-    
-    rustCall() {
-    
-    matrix_sdk_crypto_ffi_a24c_BackupRecoveryKey_from_passphrase(
+        return BackupRecoveryKey(unsafeFromRawPointer: try! rustCall() {
+    matrix_sdk_crypto_ffi_f611_BackupRecoveryKey_from_passphrase(
         FfiConverterString.lower(`passphrase`), 
         FfiConverterString.lower(`salt`), 
         FfiConverterInt32.lower(`rounds`), $0)
 })
     }
+
     
+
     public static func `newFromPassphrase`(`passphrase`: String)  -> BackupRecoveryKey {
-        return BackupRecoveryKey(unsafeFromRawPointer: try!
-    
-    rustCall() {
-    
-    matrix_sdk_crypto_ffi_a24c_BackupRecoveryKey_new_from_passphrase(
+        return BackupRecoveryKey(unsafeFromRawPointer: try! rustCall() {
+    matrix_sdk_crypto_ffi_f611_BackupRecoveryKey_new_from_passphrase(
         FfiConverterString.lower(`passphrase`), $0)
 })
     }
+
     
+
     public static func `fromBase64`(`key`: String) throws -> BackupRecoveryKey {
-        return BackupRecoveryKey(unsafeFromRawPointer: try
-    
-    rustCallWithError(FfiConverterTypeDecodeError.self) {
-    
-    matrix_sdk_crypto_ffi_a24c_BackupRecoveryKey_from_base64(
+        return BackupRecoveryKey(unsafeFromRawPointer: try rustCallWithError(FfiConverterTypeDecodeError.self) {
+    matrix_sdk_crypto_ffi_f611_BackupRecoveryKey_from_base64(
         FfiConverterString.lower(`key`), $0)
 })
     }
+
     
+
     public static func `fromBase58`(`key`: String) throws -> BackupRecoveryKey {
-        return BackupRecoveryKey(unsafeFromRawPointer: try
-    
-    rustCallWithError(FfiConverterTypeDecodeError.self) {
-    
-    matrix_sdk_crypto_ffi_a24c_BackupRecoveryKey_from_base58(
+        return BackupRecoveryKey(unsafeFromRawPointer: try rustCallWithError(FfiConverterTypeDecodeError.self) {
+    matrix_sdk_crypto_ffi_f611_BackupRecoveryKey_from_base58(
         FfiConverterString.lower(`key`), $0)
 })
     }
+
     
 
     
+    
+
     public func `decryptV1`(`ephemeralKey`: String, `mac`: String, `ciphertext`: String) throws -> String {
-        return try FfiConverterString.lift(
-            try
+        return try  FfiConverterString.lift(
+            try 
     rustCallWithError(FfiConverterTypePkDecryptionError.self) {
-    _uniffi_matrix_sdk_crypto_ffi_impl_BackupRecoveryKey_decrypt_v1_2758(self.pointer, 
+    _uniffi_matrix_sdk_crypto_ffi_impl_BackupRecoveryKey_decrypt_v1_9754(self.pointer, 
         FfiConverterString.lower(`ephemeralKey`), 
         FfiConverterString.lower(`mac`), 
         FfiConverterString.lower(`ciphertext`), $0
@@ -570,38 +577,41 @@ public class BackupRecoveryKey: BackupRecoveryKeyProtocol {
 }
         )
     }
+
     public func `megolmV1PublicKey`()  -> MegolmV1BackupKey {
-        return try! FfiConverterTypeMegolmV1BackupKey.lift(
-            try!
+        return try!  FfiConverterTypeMegolmV1BackupKey.lift(
+            try! 
     rustCall() {
     
-    _uniffi_matrix_sdk_crypto_ffi_impl_BackupRecoveryKey_megolm_v1_public_key_16a(self.pointer, $0
+    _uniffi_matrix_sdk_crypto_ffi_impl_BackupRecoveryKey_megolm_v1_public_key_1d77(self.pointer, $0
     )
 }
         )
     }
+
     public func `toBase58`()  -> String {
-        return try! FfiConverterString.lift(
-            try!
+        return try!  FfiConverterString.lift(
+            try! 
     rustCall() {
     
-    _uniffi_matrix_sdk_crypto_ffi_impl_BackupRecoveryKey_to_base58_f73f(self.pointer, $0
+    _uniffi_matrix_sdk_crypto_ffi_impl_BackupRecoveryKey_to_base58_3fbd(self.pointer, $0
     )
 }
         )
     }
+
     public func `toBase64`()  -> String {
-        return try! FfiConverterString.lift(
-            try!
+        return try!  FfiConverterString.lift(
+            try! 
     rustCall() {
     
-    _uniffi_matrix_sdk_crypto_ffi_impl_BackupRecoveryKey_to_base64_1b14(self.pointer, $0
+    _uniffi_matrix_sdk_crypto_ffi_impl_BackupRecoveryKey_to_base64_8861(self.pointer, $0
     )
 }
         )
     }
-    
 }
+
 
 
 public struct FfiConverterTypeBackupRecoveryKey: FfiConverter {
@@ -635,54 +645,68 @@ public struct FfiConverterTypeBackupRecoveryKey: FfiConverter {
 }
 
 
+public func FfiConverterTypeBackupRecoveryKey_lift(_ pointer: UnsafeMutableRawPointer) throws -> BackupRecoveryKey {
+    return try FfiConverterTypeBackupRecoveryKey.lift(pointer)
+}
+
+public func FfiConverterTypeBackupRecoveryKey_lower(_ value: BackupRecoveryKey) -> UnsafeMutableRawPointer {
+    return FfiConverterTypeBackupRecoveryKey.lower(value)
+}
+
+
 public protocol OlmMachineProtocol {
-    func `receiveSyncChanges`(`events`: String, `deviceChanges`: DeviceLists, `keyCounts`: [String: Int32], `unusedFallbackKeys`: [String]?) throws -> String
-    func `outgoingRequests`() throws -> [Request]
-    func `markRequestAsSent`(`requestId`: String, `requestType`: RequestType, `response`: String) throws
-    func `decryptRoomEvent`(`event`: String, `roomId`: String, `handleVerificatonEvents`: Bool) throws -> DecryptedEvent
-    func `encrypt`(`roomId`: String, `eventType`: String, `content`: String) throws -> String
-    func `getIdentity`(`userId`: String, `timeout`: UInt32) throws -> UserIdentity?
-    func `verifyIdentity`(`userId`: String) throws -> SignatureUploadRequest
-    func `getDevice`(`userId`: String, `deviceId`: String, `timeout`: UInt32) throws -> Device?
-    func `setLocalTrust`(`userId`: String, `deviceId`: String, `trustState`: LocalTrust) throws
-    func `verifyDevice`(`userId`: String, `deviceId`: String) throws -> SignatureUploadRequest
-    func `getUserDevices`(`userId`: String, `timeout`: UInt32) throws -> [Device]
-    func `isUserTracked`(`userId`: String) throws -> Bool
-    func `updateTrackedUsers`(`users`: [String]) throws
-    func `getMissingSessions`(`users`: [String]) throws -> Request?
-    func `shareRoomKey`(`roomId`: String, `users`: [String], `settings`: EncryptionSettings) throws -> [Request]
-    func `receiveUnencryptedVerificationEvent`(`event`: String, `roomId`: String) throws
-    func `receiveVerificationEvent`(`event`: String, `roomId`: String) throws
-    func `getVerificationRequests`(`userId`: String)  -> [VerificationRequest]
-    func `getVerificationRequest`(`userId`: String, `flowId`: String)  -> VerificationRequest?
-    func `getVerification`(`userId`: String, `flowId`: String)  -> Verification?
-    func `requestVerification`(`userId`: String, `roomId`: String, `eventId`: String, `methods`: [String]) throws -> VerificationRequest?
-    func `verificationRequestContent`(`userId`: String, `methods`: [String]) throws -> String?
-    func `requestSelfVerification`(`methods`: [String]) throws -> RequestVerificationResult?
-    func `requestVerificationWithDevice`(`userId`: String, `deviceId`: String, `methods`: [String]) throws -> RequestVerificationResult?
-    func `startSasWithDevice`(`userId`: String, `deviceId`: String) throws -> StartSasResult?
-    func `requestRoomKey`(`event`: String, `roomId`: String) throws -> KeyRequestPair
-    func `exportRoomKeys`(`passphrase`: String, `rounds`: Int32) throws -> String
-    func `importRoomKeys`(`keys`: String, `passphrase`: String, `progressListener`: ProgressListener) throws -> KeysImportResult
-    func `importDecryptedRoomKeys`(`keys`: String, `progressListener`: ProgressListener) throws -> KeysImportResult
-    func `discardRoomKey`(`roomId`: String) throws
-    func `bootstrapCrossSigning`() throws -> BootstrapCrossSigningResult
-    func `exportCrossSigningKeys`()  -> CrossSigningKeyExport?
-    func `importCrossSigningKeys`(`export`: CrossSigningKeyExport) throws
-    func `isIdentityVerified`(`userId`: String) throws -> Bool
-    func `sign`(`message`: String)  -> [String: [String: String]]
-    func `verifyBackup`(`authData`: String) throws -> SignatureVerification
-    func `backupEnabled`()  -> Bool
-    func `backupRoomKeys`() throws -> Request?
-    func `crossSigningStatus`()  -> CrossSigningStatus
-    func `deviceId`()  -> String
-    func `disableBackup`() throws
-    func `enableBackupV1`(`key`: MegolmV1BackupKey, `version`: String) throws
-    func `getBackupKeys`() throws -> BackupKeys?
-    func `identityKeys`()  -> [String: String]
-    func `roomKeyCounts`() throws -> RoomKeyCounts
-    func `saveRecoveryKey`(`key`: BackupRecoveryKey?, `version`: String?) throws
-    func `userId`()  -> String
+    func `outgoingRequests`()  throws -> [Request]
+    func `markRequestAsSent`(`requestId`: String, `requestType`: RequestType, `response`: String)  throws
+    func `getIdentity`(`userId`: String, `timeout`: UInt32)  throws -> UserIdentity?
+    func `verifyIdentity`(`userId`: String)  throws -> SignatureUploadRequest
+    func `getDevice`(`userId`: String, `deviceId`: String, `timeout`: UInt32)  throws -> Device?
+    func `setLocalTrust`(`userId`: String, `deviceId`: String, `trustState`: LocalTrust)  throws
+    func `verifyDevice`(`userId`: String, `deviceId`: String)  throws -> SignatureUploadRequest
+    func `getUserDevices`(`userId`: String, `timeout`: UInt32)  throws -> [Device]
+    func `importRoomKeys`(`keys`: String, `passphrase`: String, `progressListener`: ProgressListener)  throws -> KeysImportResult
+    func `importDecryptedRoomKeys`(`keys`: String, `progressListener`: ProgressListener)  throws -> KeysImportResult
+    func `isIdentityVerified`(`userId`: String)  throws -> Bool
+    func `sign`(`message`: String)   -> [String: [String: String]]
+    func `verifyBackup`(`authData`: String)  throws -> SignatureVerification
+    func `backupEnabled`()   -> Bool
+    func `backupRoomKeys`()  throws -> Request?
+    func `bootstrapCrossSigning`()  throws -> BootstrapCrossSigningResult
+    func `crossSigningStatus`()   -> CrossSigningStatus
+    func `decryptRoomEvent`(`event`: String, `roomId`: String, `handleVerificationEvents`: Bool, `strictShields`: Bool)  throws -> DecryptedEvent
+    func `deviceId`()   -> String
+    func `disableBackup`()  throws
+    func `discardRoomKey`(`roomId`: String)  throws
+    func `enableBackupV1`(`key`: MegolmV1BackupKey, `version`: String)  throws
+    func `encrypt`(`roomId`: String, `eventType`: String, `content`: String)  throws -> String
+    func `exportCrossSigningKeys`()   -> CrossSigningKeyExport?
+    func `exportRoomKeys`(`passphrase`: String, `rounds`: Int32)  throws -> String
+    func `getBackupKeys`()  throws -> BackupKeys?
+    func `getMissingSessions`(`users`: [String])  throws -> Request?
+    func `getOnlyAllowTrustedDevices`()  throws -> Bool
+    func `getRoomSettings`(`roomId`: String)  throws -> RoomSettings?
+    func `getVerification`(`userId`: String, `flowId`: String)   -> Verification?
+    func `getVerificationRequest`(`userId`: String, `flowId`: String)   -> VerificationRequest?
+    func `getVerificationRequests`(`userId`: String)   -> [VerificationRequest]
+    func `identityKeys`()   -> [String: String]
+    func `importCrossSigningKeys`(`export`: CrossSigningKeyExport)  throws
+    func `isUserTracked`(`userId`: String)  throws -> Bool
+    func `receiveSyncChanges`(`events`: String, `deviceChanges`: DeviceLists, `keyCounts`: [String: Int32], `unusedFallbackKeys`: [String]?)  throws -> String
+    func `receiveUnencryptedVerificationEvent`(`event`: String, `roomId`: String)  throws
+    func `receiveVerificationEvent`(`event`: String, `roomId`: String)  throws
+    func `requestRoomKey`(`event`: String, `roomId`: String)  throws -> KeyRequestPair
+    func `requestSelfVerification`(`methods`: [String])  throws -> RequestVerificationResult?
+    func `requestVerification`(`userId`: String, `roomId`: String, `eventId`: String, `methods`: [String])  throws -> VerificationRequest?
+    func `requestVerificationWithDevice`(`userId`: String, `deviceId`: String, `methods`: [String])  throws -> RequestVerificationResult?
+    func `roomKeyCounts`()  throws -> RoomKeyCounts
+    func `saveRecoveryKey`(`key`: BackupRecoveryKey?, `version`: String?)  throws
+    func `setOnlyAllowTrustedDevices`(`onlyAllowTrustedDevices`: Bool)  throws
+    func `setRoomAlgorithm`(`roomId`: String, `algorithm`: EventEncryptionAlgorithm)  throws
+    func `setRoomOnlyAllowTrustedDevices`(`roomId`: String, `onlyAllowTrustedDevices`: Bool)  throws
+    func `shareRoomKey`(`roomId`: String, `users`: [String], `settings`: EncryptionSettings)  throws -> [Request]
+    func `startSasWithDevice`(`userId`: String, `deviceId`: String)  throws -> StartSasResult?
+    func `updateTrackedUsers`(`users`: [String])  throws
+    func `userId`()   -> String
+    func `verificationRequestContent`(`userId`: String, `methods`: [String])  throws -> String?
     
 }
 
@@ -696,11 +720,8 @@ public class OlmMachine: OlmMachineProtocol {
         self.pointer = pointer
     }
     public convenience init(`userId`: String, `deviceId`: String, `path`: String, `passphrase`: String?) throws {
-        self.init(unsafeFromRawPointer: try
-    
-    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_new(
+        self.init(unsafeFromRawPointer: try rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    matrix_sdk_crypto_ffi_f611_OlmMachine_new(
         FfiConverterString.lower(`userId`), 
         FfiConverterString.lower(`deviceId`), 
         FfiConverterString.lower(`path`), 
@@ -709,17 +730,411 @@ public class OlmMachine: OlmMachineProtocol {
     }
 
     deinit {
-        try! rustCall { ffi_matrix_sdk_crypto_ffi_a24c_OlmMachine_object_free(pointer, $0) }
+        try! rustCall { ffi_matrix_sdk_crypto_ffi_f611_OlmMachine_object_free(pointer, $0) }
     }
 
     
 
     
-    public func `receiveSyncChanges`(`events`: String, `deviceChanges`: DeviceLists, `keyCounts`: [String: Int32], `unusedFallbackKeys`: [String]?) throws -> String {
-        return try FfiConverterString.lift(
-            try
+    
+
+    public func `outgoingRequests`() throws -> [Request] {
+        return try  FfiConverterSequenceTypeRequest.lift(
+            try 
     rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_receive_sync_changes(self.pointer, 
+    matrix_sdk_crypto_ffi_f611_OlmMachine_outgoing_requests(self.pointer, $0
+    )
+}
+        )
+    }
+
+    public func `markRequestAsSent`(`requestId`: String, `requestType`: RequestType, `response`: String) throws {
+        try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    matrix_sdk_crypto_ffi_f611_OlmMachine_mark_request_as_sent(self.pointer, 
+        FfiConverterString.lower(`requestId`), 
+        FfiConverterTypeRequestType.lower(`requestType`), 
+        FfiConverterString.lower(`response`), $0
+    )
+}
+    }
+
+    public func `getIdentity`(`userId`: String, `timeout`: UInt32) throws -> UserIdentity? {
+        return try  FfiConverterOptionTypeUserIdentity.lift(
+            try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    matrix_sdk_crypto_ffi_f611_OlmMachine_get_identity(self.pointer, 
+        FfiConverterString.lower(`userId`), 
+        FfiConverterUInt32.lower(`timeout`), $0
+    )
+}
+        )
+    }
+
+    public func `verifyIdentity`(`userId`: String) throws -> SignatureUploadRequest {
+        return try  FfiConverterTypeSignatureUploadRequest.lift(
+            try 
+    rustCallWithError(FfiConverterTypeSignatureError.self) {
+    matrix_sdk_crypto_ffi_f611_OlmMachine_verify_identity(self.pointer, 
+        FfiConverterString.lower(`userId`), $0
+    )
+}
+        )
+    }
+
+    public func `getDevice`(`userId`: String, `deviceId`: String, `timeout`: UInt32) throws -> Device? {
+        return try  FfiConverterOptionTypeDevice.lift(
+            try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    matrix_sdk_crypto_ffi_f611_OlmMachine_get_device(self.pointer, 
+        FfiConverterString.lower(`userId`), 
+        FfiConverterString.lower(`deviceId`), 
+        FfiConverterUInt32.lower(`timeout`), $0
+    )
+}
+        )
+    }
+
+    public func `setLocalTrust`(`userId`: String, `deviceId`: String, `trustState`: LocalTrust) throws {
+        try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    matrix_sdk_crypto_ffi_f611_OlmMachine_set_local_trust(self.pointer, 
+        FfiConverterString.lower(`userId`), 
+        FfiConverterString.lower(`deviceId`), 
+        FfiConverterTypeLocalTrust.lower(`trustState`), $0
+    )
+}
+    }
+
+    public func `verifyDevice`(`userId`: String, `deviceId`: String) throws -> SignatureUploadRequest {
+        return try  FfiConverterTypeSignatureUploadRequest.lift(
+            try 
+    rustCallWithError(FfiConverterTypeSignatureError.self) {
+    matrix_sdk_crypto_ffi_f611_OlmMachine_verify_device(self.pointer, 
+        FfiConverterString.lower(`userId`), 
+        FfiConverterString.lower(`deviceId`), $0
+    )
+}
+        )
+    }
+
+    public func `getUserDevices`(`userId`: String, `timeout`: UInt32) throws -> [Device] {
+        return try  FfiConverterSequenceTypeDevice.lift(
+            try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    matrix_sdk_crypto_ffi_f611_OlmMachine_get_user_devices(self.pointer, 
+        FfiConverterString.lower(`userId`), 
+        FfiConverterUInt32.lower(`timeout`), $0
+    )
+}
+        )
+    }
+
+    public func `importRoomKeys`(`keys`: String, `passphrase`: String, `progressListener`: ProgressListener) throws -> KeysImportResult {
+        return try  FfiConverterTypeKeysImportResult.lift(
+            try 
+    rustCallWithError(FfiConverterTypeKeyImportError.self) {
+    matrix_sdk_crypto_ffi_f611_OlmMachine_import_room_keys(self.pointer, 
+        FfiConverterString.lower(`keys`), 
+        FfiConverterString.lower(`passphrase`), 
+        FfiConverterCallbackInterfaceProgressListener.lower(`progressListener`), $0
+    )
+}
+        )
+    }
+
+    public func `importDecryptedRoomKeys`(`keys`: String, `progressListener`: ProgressListener) throws -> KeysImportResult {
+        return try  FfiConverterTypeKeysImportResult.lift(
+            try 
+    rustCallWithError(FfiConverterTypeKeyImportError.self) {
+    matrix_sdk_crypto_ffi_f611_OlmMachine_import_decrypted_room_keys(self.pointer, 
+        FfiConverterString.lower(`keys`), 
+        FfiConverterCallbackInterfaceProgressListener.lower(`progressListener`), $0
+    )
+}
+        )
+    }
+
+    public func `isIdentityVerified`(`userId`: String) throws -> Bool {
+        return try  FfiConverterBool.lift(
+            try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    matrix_sdk_crypto_ffi_f611_OlmMachine_is_identity_verified(self.pointer, 
+        FfiConverterString.lower(`userId`), $0
+    )
+}
+        )
+    }
+
+    public func `sign`(`message`: String)  -> [String: [String: String]] {
+        return try!  FfiConverterDictionaryStringDictionaryStringString.lift(
+            try! 
+    rustCall() {
+    
+    matrix_sdk_crypto_ffi_f611_OlmMachine_sign(self.pointer, 
+        FfiConverterString.lower(`message`), $0
+    )
+}
+        )
+    }
+
+    public func `verifyBackup`(`authData`: String) throws -> SignatureVerification {
+        return try  FfiConverterTypeSignatureVerification.lift(
+            try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    matrix_sdk_crypto_ffi_f611_OlmMachine_verify_backup(self.pointer, 
+        FfiConverterString.lower(`authData`), $0
+    )
+}
+        )
+    }
+
+    public func `backupEnabled`()  -> Bool {
+        return try!  FfiConverterBool.lift(
+            try! 
+    rustCall() {
+    
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_backup_enabled_18b9(self.pointer, $0
+    )
+}
+        )
+    }
+
+    public func `backupRoomKeys`() throws -> Request? {
+        return try  FfiConverterOptionTypeRequest.lift(
+            try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_backup_room_keys_e0d8(self.pointer, $0
+    )
+}
+        )
+    }
+
+    public func `bootstrapCrossSigning`() throws -> BootstrapCrossSigningResult {
+        return try  FfiConverterTypeBootstrapCrossSigningResult.lift(
+            try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_bootstrap_cross_signing_379(self.pointer, $0
+    )
+}
+        )
+    }
+
+    public func `crossSigningStatus`()  -> CrossSigningStatus {
+        return try!  FfiConverterTypeCrossSigningStatus.lift(
+            try! 
+    rustCall() {
+    
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_cross_signing_status_e4ae(self.pointer, $0
+    )
+}
+        )
+    }
+
+    public func `decryptRoomEvent`(`event`: String, `roomId`: String, `handleVerificationEvents`: Bool, `strictShields`: Bool) throws -> DecryptedEvent {
+        return try  FfiConverterTypeDecryptedEvent.lift(
+            try 
+    rustCallWithError(FfiConverterTypeDecryptionError.self) {
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_decrypt_room_event_4f4f(self.pointer, 
+        FfiConverterString.lower(`event`), 
+        FfiConverterString.lower(`roomId`), 
+        FfiConverterBool.lower(`handleVerificationEvents`), 
+        FfiConverterBool.lower(`strictShields`), $0
+    )
+}
+        )
+    }
+
+    public func `deviceId`()  -> String {
+        return try!  FfiConverterString.lift(
+            try! 
+    rustCall() {
+    
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_device_id_efde(self.pointer, $0
+    )
+}
+        )
+    }
+
+    public func `disableBackup`() throws {
+        try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_disable_backup_ac9f(self.pointer, $0
+    )
+}
+    }
+
+    public func `discardRoomKey`(`roomId`: String) throws {
+        try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_discard_room_key_ac56(self.pointer, 
+        FfiConverterString.lower(`roomId`), $0
+    )
+}
+    }
+
+    public func `enableBackupV1`(`key`: MegolmV1BackupKey, `version`: String) throws {
+        try 
+    rustCallWithError(FfiConverterTypeDecodeError.self) {
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_enable_backup_v1_a0a2(self.pointer, 
+        FfiConverterTypeMegolmV1BackupKey.lower(`key`), 
+        FfiConverterString.lower(`version`), $0
+    )
+}
+    }
+
+    public func `encrypt`(`roomId`: String, `eventType`: String, `content`: String) throws -> String {
+        return try  FfiConverterString.lift(
+            try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_encrypt_63b1(self.pointer, 
+        FfiConverterString.lower(`roomId`), 
+        FfiConverterString.lower(`eventType`), 
+        FfiConverterString.lower(`content`), $0
+    )
+}
+        )
+    }
+
+    public func `exportCrossSigningKeys`()  -> CrossSigningKeyExport? {
+        return try!  FfiConverterOptionTypeCrossSigningKeyExport.lift(
+            try! 
+    rustCall() {
+    
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_export_cross_signing_keys_47bf(self.pointer, $0
+    )
+}
+        )
+    }
+
+    public func `exportRoomKeys`(`passphrase`: String, `rounds`: Int32) throws -> String {
+        return try  FfiConverterString.lift(
+            try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_export_room_keys_937c(self.pointer, 
+        FfiConverterString.lower(`passphrase`), 
+        FfiConverterInt32.lower(`rounds`), $0
+    )
+}
+        )
+    }
+
+    public func `getBackupKeys`() throws -> BackupKeys? {
+        return try  FfiConverterOptionTypeBackupKeys.lift(
+            try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_get_backup_keys_d873(self.pointer, $0
+    )
+}
+        )
+    }
+
+    public func `getMissingSessions`(`users`: [String]) throws -> Request? {
+        return try  FfiConverterOptionTypeRequest.lift(
+            try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_get_missing_sessions_e0ed(self.pointer, 
+        FfiConverterSequenceString.lower(`users`), $0
+    )
+}
+        )
+    }
+
+    public func `getOnlyAllowTrustedDevices`() throws -> Bool {
+        return try  FfiConverterBool.lift(
+            try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_get_only_allow_trusted_devices_4c8(self.pointer, $0
+    )
+}
+        )
+    }
+
+    public func `getRoomSettings`(`roomId`: String) throws -> RoomSettings? {
+        return try  FfiConverterOptionTypeRoomSettings.lift(
+            try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_get_room_settings_2ef3(self.pointer, 
+        FfiConverterString.lower(`roomId`), $0
+    )
+}
+        )
+    }
+
+    public func `getVerification`(`userId`: String, `flowId`: String)  -> Verification? {
+        return try!  FfiConverterOptionTypeVerification.lift(
+            try! 
+    rustCall() {
+    
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_get_verification_18fa(self.pointer, 
+        FfiConverterString.lower(`userId`), 
+        FfiConverterString.lower(`flowId`), $0
+    )
+}
+        )
+    }
+
+    public func `getVerificationRequest`(`userId`: String, `flowId`: String)  -> VerificationRequest? {
+        return try!  FfiConverterOptionTypeVerificationRequest.lift(
+            try! 
+    rustCall() {
+    
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_get_verification_request_a81d(self.pointer, 
+        FfiConverterString.lower(`userId`), 
+        FfiConverterString.lower(`flowId`), $0
+    )
+}
+        )
+    }
+
+    public func `getVerificationRequests`(`userId`: String)  -> [VerificationRequest] {
+        return try!  FfiConverterSequenceTypeVerificationRequest.lift(
+            try! 
+    rustCall() {
+    
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_get_verification_requests_9571(self.pointer, 
+        FfiConverterString.lower(`userId`), $0
+    )
+}
+        )
+    }
+
+    public func `identityKeys`()  -> [String: String] {
+        return try!  FfiConverterDictionaryStringString.lift(
+            try! 
+    rustCall() {
+    
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_identity_keys_705c(self.pointer, $0
+    )
+}
+        )
+    }
+
+    public func `importCrossSigningKeys`(`export`: CrossSigningKeyExport) throws {
+        try 
+    rustCallWithError(FfiConverterTypeSecretImportError.self) {
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_import_cross_signing_keys_7223(self.pointer, 
+        FfiConverterTypeCrossSigningKeyExport.lower(`export`), $0
+    )
+}
+    }
+
+    public func `isUserTracked`(`userId`: String) throws -> Bool {
+        return try  FfiConverterBool.lift(
+            try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_is_user_tracked_fa20(self.pointer, 
+        FfiConverterString.lower(`userId`), $0
+    )
+}
+        )
+    }
+
+    public func `receiveSyncChanges`(`events`: String, `deviceChanges`: DeviceLists, `keyCounts`: [String: Int32], `unusedFallbackKeys`: [String]?) throws -> String {
+        return try  FfiConverterString.lift(
+            try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_receive_sync_changes_a0bf(self.pointer, 
         FfiConverterString.lower(`events`), 
         FfiConverterTypeDeviceLists.lower(`deviceChanges`), 
         FfiConverterDictionaryStringInt32.lower(`keyCounts`), 
@@ -728,212 +1143,55 @@ public class OlmMachine: OlmMachineProtocol {
 }
         )
     }
-    public func `outgoingRequests`() throws -> [Request] {
-        return try FfiConverterSequenceTypeRequest.lift(
-            try
-    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_outgoing_requests(self.pointer, $0
-    )
-}
-        )
-    }
-    public func `markRequestAsSent`(`requestId`: String, `requestType`: RequestType, `response`: String) throws {
-        try
-    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_mark_request_as_sent(self.pointer, 
-        FfiConverterString.lower(`requestId`), 
-        FfiConverterTypeRequestType.lower(`requestType`), 
-        FfiConverterString.lower(`response`), $0
-    )
-}
-    }
-    public func `decryptRoomEvent`(`event`: String, `roomId`: String, `handleVerificatonEvents`: Bool) throws -> DecryptedEvent {
-        return try FfiConverterTypeDecryptedEvent.lift(
-            try
-    rustCallWithError(FfiConverterTypeDecryptionError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_decrypt_room_event(self.pointer, 
-        FfiConverterString.lower(`event`), 
-        FfiConverterString.lower(`roomId`), 
-        FfiConverterBool.lower(`handleVerificatonEvents`), $0
-    )
-}
-        )
-    }
-    public func `encrypt`(`roomId`: String, `eventType`: String, `content`: String) throws -> String {
-        return try FfiConverterString.lift(
-            try
-    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_encrypt(self.pointer, 
-        FfiConverterString.lower(`roomId`), 
-        FfiConverterString.lower(`eventType`), 
-        FfiConverterString.lower(`content`), $0
-    )
-}
-        )
-    }
-    public func `getIdentity`(`userId`: String, `timeout`: UInt32) throws -> UserIdentity? {
-        return try FfiConverterOptionTypeUserIdentity.lift(
-            try
-    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_get_identity(self.pointer, 
-        FfiConverterString.lower(`userId`), 
-        FfiConverterUInt32.lower(`timeout`), $0
-    )
-}
-        )
-    }
-    public func `verifyIdentity`(`userId`: String) throws -> SignatureUploadRequest {
-        return try FfiConverterTypeSignatureUploadRequest.lift(
-            try
-    rustCallWithError(FfiConverterTypeSignatureError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_verify_identity(self.pointer, 
-        FfiConverterString.lower(`userId`), $0
-    )
-}
-        )
-    }
-    public func `getDevice`(`userId`: String, `deviceId`: String, `timeout`: UInt32) throws -> Device? {
-        return try FfiConverterOptionTypeDevice.lift(
-            try
-    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_get_device(self.pointer, 
-        FfiConverterString.lower(`userId`), 
-        FfiConverterString.lower(`deviceId`), 
-        FfiConverterUInt32.lower(`timeout`), $0
-    )
-}
-        )
-    }
-    public func `setLocalTrust`(`userId`: String, `deviceId`: String, `trustState`: LocalTrust) throws {
-        try
-    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_set_local_trust(self.pointer, 
-        FfiConverterString.lower(`userId`), 
-        FfiConverterString.lower(`deviceId`), 
-        FfiConverterTypeLocalTrust.lower(`trustState`), $0
-    )
-}
-    }
-    public func `verifyDevice`(`userId`: String, `deviceId`: String) throws -> SignatureUploadRequest {
-        return try FfiConverterTypeSignatureUploadRequest.lift(
-            try
-    rustCallWithError(FfiConverterTypeSignatureError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_verify_device(self.pointer, 
-        FfiConverterString.lower(`userId`), 
-        FfiConverterString.lower(`deviceId`), $0
-    )
-}
-        )
-    }
-    public func `getUserDevices`(`userId`: String, `timeout`: UInt32) throws -> [Device] {
-        return try FfiConverterSequenceTypeDevice.lift(
-            try
-    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_get_user_devices(self.pointer, 
-        FfiConverterString.lower(`userId`), 
-        FfiConverterUInt32.lower(`timeout`), $0
-    )
-}
-        )
-    }
-    public func `isUserTracked`(`userId`: String) throws -> Bool {
-        return try FfiConverterBool.lift(
-            try
-    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_is_user_tracked(self.pointer, 
-        FfiConverterString.lower(`userId`), $0
-    )
-}
-        )
-    }
-    public func `updateTrackedUsers`(`users`: [String]) throws {
-        try
-    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_update_tracked_users(self.pointer, 
-        FfiConverterSequenceString.lower(`users`), $0
-    )
-}
-    }
-    public func `getMissingSessions`(`users`: [String]) throws -> Request? {
-        return try FfiConverterOptionTypeRequest.lift(
-            try
-    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_get_missing_sessions(self.pointer, 
-        FfiConverterSequenceString.lower(`users`), $0
-    )
-}
-        )
-    }
-    public func `shareRoomKey`(`roomId`: String, `users`: [String], `settings`: EncryptionSettings) throws -> [Request] {
-        return try FfiConverterSequenceTypeRequest.lift(
-            try
-    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_share_room_key(self.pointer, 
-        FfiConverterString.lower(`roomId`), 
-        FfiConverterSequenceString.lower(`users`), 
-        FfiConverterTypeEncryptionSettings.lower(`settings`), $0
-    )
-}
-        )
-    }
+
     public func `receiveUnencryptedVerificationEvent`(`event`: String, `roomId`: String) throws {
-        try
+        try 
     rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_receive_unencrypted_verification_event(self.pointer, 
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_receive_unencrypted_verification_event_1ccd(self.pointer, 
         FfiConverterString.lower(`event`), 
         FfiConverterString.lower(`roomId`), $0
     )
 }
     }
+
     public func `receiveVerificationEvent`(`event`: String, `roomId`: String) throws {
-        try
+        try 
     rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_receive_verification_event(self.pointer, 
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_receive_verification_event_8215(self.pointer, 
         FfiConverterString.lower(`event`), 
         FfiConverterString.lower(`roomId`), $0
     )
 }
     }
-    public func `getVerificationRequests`(`userId`: String)  -> [VerificationRequest] {
-        return try! FfiConverterSequenceTypeVerificationRequest.lift(
-            try!
-    rustCall() {
-    
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_get_verification_requests(self.pointer, 
-        FfiConverterString.lower(`userId`), $0
+
+    public func `requestRoomKey`(`event`: String, `roomId`: String) throws -> KeyRequestPair {
+        return try  FfiConverterTypeKeyRequestPair.lift(
+            try 
+    rustCallWithError(FfiConverterTypeDecryptionError.self) {
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_request_room_key_85db(self.pointer, 
+        FfiConverterString.lower(`event`), 
+        FfiConverterString.lower(`roomId`), $0
     )
 }
         )
     }
-    public func `getVerificationRequest`(`userId`: String, `flowId`: String)  -> VerificationRequest? {
-        return try! FfiConverterOptionTypeVerificationRequest.lift(
-            try!
-    rustCall() {
-    
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_get_verification_request(self.pointer, 
-        FfiConverterString.lower(`userId`), 
-        FfiConverterString.lower(`flowId`), $0
-    )
-}
-        )
-    }
-    public func `getVerification`(`userId`: String, `flowId`: String)  -> Verification? {
-        return try! FfiConverterOptionTypeVerification.lift(
-            try!
-    rustCall() {
-    
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_get_verification(self.pointer, 
-        FfiConverterString.lower(`userId`), 
-        FfiConverterString.lower(`flowId`), $0
-    )
-}
-        )
-    }
-    public func `requestVerification`(`userId`: String, `roomId`: String, `eventId`: String, `methods`: [String]) throws -> VerificationRequest? {
-        return try FfiConverterOptionTypeVerificationRequest.lift(
-            try
+
+    public func `requestSelfVerification`(`methods`: [String]) throws -> RequestVerificationResult? {
+        return try  FfiConverterOptionTypeRequestVerificationResult.lift(
+            try 
     rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_request_verification(self.pointer, 
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_request_self_verification_8b29(self.pointer, 
+        FfiConverterSequenceString.lower(`methods`), $0
+    )
+}
+        )
+    }
+
+    public func `requestVerification`(`userId`: String, `roomId`: String, `eventId`: String, `methods`: [String]) throws -> VerificationRequest? {
+        return try  FfiConverterOptionTypeVerificationRequest.lift(
+            try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_request_verification_32bd(self.pointer, 
         FfiConverterString.lower(`userId`), 
         FfiConverterString.lower(`roomId`), 
         FfiConverterString.lower(`eventId`), 
@@ -942,32 +1200,12 @@ public class OlmMachine: OlmMachineProtocol {
 }
         )
     }
-    public func `verificationRequestContent`(`userId`: String, `methods`: [String]) throws -> String? {
-        return try FfiConverterOptionString.lift(
-            try
-    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_verification_request_content(self.pointer, 
-        FfiConverterString.lower(`userId`), 
-        FfiConverterSequenceString.lower(`methods`), $0
-    )
-}
-        )
-    }
-    public func `requestSelfVerification`(`methods`: [String]) throws -> RequestVerificationResult? {
-        return try FfiConverterOptionTypeRequestVerificationResult.lift(
-            try
-    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_request_self_verification(self.pointer, 
-        FfiConverterSequenceString.lower(`methods`), $0
-    )
-}
-        )
-    }
+
     public func `requestVerificationWithDevice`(`userId`: String, `deviceId`: String, `methods`: [String]) throws -> RequestVerificationResult? {
-        return try FfiConverterOptionTypeRequestVerificationResult.lift(
-            try
+        return try  FfiConverterOptionTypeRequestVerificationResult.lift(
+            try 
     rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_request_verification_with_device(self.pointer, 
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_request_verification_with_device_11bb(self.pointer, 
         FfiConverterString.lower(`userId`), 
         FfiConverterString.lower(`deviceId`), 
         FfiConverterSequenceString.lower(`methods`), $0
@@ -975,232 +1213,114 @@ public class OlmMachine: OlmMachineProtocol {
 }
         )
     }
-    public func `startSasWithDevice`(`userId`: String, `deviceId`: String) throws -> StartSasResult? {
-        return try FfiConverterOptionTypeStartSasResult.lift(
-            try
+
+    public func `roomKeyCounts`() throws -> RoomKeyCounts {
+        return try  FfiConverterTypeRoomKeyCounts.lift(
+            try 
     rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_start_sas_with_device(self.pointer, 
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_room_key_counts_de1b(self.pointer, $0
+    )
+}
+        )
+    }
+
+    public func `saveRecoveryKey`(`key`: BackupRecoveryKey?, `version`: String?) throws {
+        try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_save_recovery_key_c6c9(self.pointer, 
+        FfiConverterOptionTypeBackupRecoveryKey.lower(`key`), 
+        FfiConverterOptionString.lower(`version`), $0
+    )
+}
+    }
+
+    public func `setOnlyAllowTrustedDevices`(`onlyAllowTrustedDevices`: Bool) throws {
+        try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_set_only_allow_trusted_devices_279e(self.pointer, 
+        FfiConverterBool.lower(`onlyAllowTrustedDevices`), $0
+    )
+}
+    }
+
+    public func `setRoomAlgorithm`(`roomId`: String, `algorithm`: EventEncryptionAlgorithm) throws {
+        try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_set_room_algorithm_6f69(self.pointer, 
+        FfiConverterString.lower(`roomId`), 
+        FfiConverterTypeEventEncryptionAlgorithm.lower(`algorithm`), $0
+    )
+}
+    }
+
+    public func `setRoomOnlyAllowTrustedDevices`(`roomId`: String, `onlyAllowTrustedDevices`: Bool) throws {
+        try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_set_room_only_allow_trusted_devices_adfe(self.pointer, 
+        FfiConverterString.lower(`roomId`), 
+        FfiConverterBool.lower(`onlyAllowTrustedDevices`), $0
+    )
+}
+    }
+
+    public func `shareRoomKey`(`roomId`: String, `users`: [String], `settings`: EncryptionSettings) throws -> [Request] {
+        return try  FfiConverterSequenceTypeRequest.lift(
+            try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_share_room_key_11c0(self.pointer, 
+        FfiConverterString.lower(`roomId`), 
+        FfiConverterSequenceString.lower(`users`), 
+        FfiConverterTypeEncryptionSettings.lower(`settings`), $0
+    )
+}
+        )
+    }
+
+    public func `startSasWithDevice`(`userId`: String, `deviceId`: String) throws -> StartSasResult? {
+        return try  FfiConverterOptionTypeStartSasResult.lift(
+            try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_start_sas_with_device_1aae(self.pointer, 
         FfiConverterString.lower(`userId`), 
         FfiConverterString.lower(`deviceId`), $0
     )
 }
         )
     }
-    public func `requestRoomKey`(`event`: String, `roomId`: String) throws -> KeyRequestPair {
-        return try FfiConverterTypeKeyRequestPair.lift(
-            try
-    rustCallWithError(FfiConverterTypeDecryptionError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_request_room_key(self.pointer, 
-        FfiConverterString.lower(`event`), 
-        FfiConverterString.lower(`roomId`), $0
-    )
-}
-        )
-    }
-    public func `exportRoomKeys`(`passphrase`: String, `rounds`: Int32) throws -> String {
-        return try FfiConverterString.lift(
-            try
+
+    public func `updateTrackedUsers`(`users`: [String]) throws {
+        try 
     rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_export_room_keys(self.pointer, 
-        FfiConverterString.lower(`passphrase`), 
-        FfiConverterInt32.lower(`rounds`), $0
-    )
-}
-        )
-    }
-    public func `importRoomKeys`(`keys`: String, `passphrase`: String, `progressListener`: ProgressListener) throws -> KeysImportResult {
-        return try FfiConverterTypeKeysImportResult.lift(
-            try
-    rustCallWithError(FfiConverterTypeKeyImportError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_import_room_keys(self.pointer, 
-        FfiConverterString.lower(`keys`), 
-        FfiConverterString.lower(`passphrase`), 
-        FfiConverterCallbackInterfaceProgressListener.lower(`progressListener`), $0
-    )
-}
-        )
-    }
-    public func `importDecryptedRoomKeys`(`keys`: String, `progressListener`: ProgressListener) throws -> KeysImportResult {
-        return try FfiConverterTypeKeysImportResult.lift(
-            try
-    rustCallWithError(FfiConverterTypeKeyImportError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_import_decrypted_room_keys(self.pointer, 
-        FfiConverterString.lower(`keys`), 
-        FfiConverterCallbackInterfaceProgressListener.lower(`progressListener`), $0
-    )
-}
-        )
-    }
-    public func `discardRoomKey`(`roomId`: String) throws {
-        try
-    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_discard_room_key(self.pointer, 
-        FfiConverterString.lower(`roomId`), $0
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_update_tracked_users_408f(self.pointer, 
+        FfiConverterSequenceString.lower(`users`), $0
     )
 }
     }
-    public func `bootstrapCrossSigning`() throws -> BootstrapCrossSigningResult {
-        return try FfiConverterTypeBootstrapCrossSigningResult.lift(
-            try
-    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_bootstrap_cross_signing(self.pointer, $0
-    )
-}
-        )
-    }
-    public func `exportCrossSigningKeys`()  -> CrossSigningKeyExport? {
-        return try! FfiConverterOptionTypeCrossSigningKeyExport.lift(
-            try!
-    rustCall() {
-    
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_export_cross_signing_keys(self.pointer, $0
-    )
-}
-        )
-    }
-    public func `importCrossSigningKeys`(`export`: CrossSigningKeyExport) throws {
-        try
-    rustCallWithError(FfiConverterTypeSecretImportError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_import_cross_signing_keys(self.pointer, 
-        FfiConverterTypeCrossSigningKeyExport.lower(`export`), $0
-    )
-}
-    }
-    public func `isIdentityVerified`(`userId`: String) throws -> Bool {
-        return try FfiConverterBool.lift(
-            try
-    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_is_identity_verified(self.pointer, 
-        FfiConverterString.lower(`userId`), $0
-    )
-}
-        )
-    }
-    public func `sign`(`message`: String)  -> [String: [String: String]] {
-        return try! FfiConverterDictionaryStringDictionaryStringString.lift(
-            try!
-    rustCall() {
-    
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_sign(self.pointer, 
-        FfiConverterString.lower(`message`), $0
-    )
-}
-        )
-    }
-    public func `verifyBackup`(`authData`: String) throws -> SignatureVerification {
-        return try FfiConverterTypeSignatureVerification.lift(
-            try
-    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_OlmMachine_verify_backup(self.pointer, 
-        FfiConverterString.lower(`authData`), $0
-    )
-}
-        )
-    }
-    public func `backupEnabled`()  -> Bool {
-        return try! FfiConverterBool.lift(
-            try!
-    rustCall() {
-    
-    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_backup_enabled_7649(self.pointer, $0
-    )
-}
-        )
-    }
-    public func `backupRoomKeys`() throws -> Request? {
-        return try FfiConverterOptionTypeRequest.lift(
-            try
-    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_backup_room_keys_675a(self.pointer, $0
-    )
-}
-        )
-    }
-    public func `crossSigningStatus`()  -> CrossSigningStatus {
-        return try! FfiConverterTypeCrossSigningStatus.lift(
-            try!
-    rustCall() {
-    
-    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_cross_signing_status_6d0e(self.pointer, $0
-    )
-}
-        )
-    }
-    public func `deviceId`()  -> String {
-        return try! FfiConverterString.lift(
-            try!
-    rustCall() {
-    
-    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_device_id_db0e(self.pointer, $0
-    )
-}
-        )
-    }
-    public func `disableBackup`() throws {
-        try
-    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_disable_backup_80da(self.pointer, $0
-    )
-}
-    }
-    public func `enableBackupV1`(`key`: MegolmV1BackupKey, `version`: String) throws {
-        try
-    rustCallWithError(FfiConverterTypeDecodeError.self) {
-    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_enable_backup_v1_bb5(self.pointer, 
-        FfiConverterTypeMegolmV1BackupKey.lower(`key`), 
-        FfiConverterString.lower(`version`), $0
-    )
-}
-    }
-    public func `getBackupKeys`() throws -> BackupKeys? {
-        return try FfiConverterOptionTypeBackupKeys.lift(
-            try
-    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_get_backup_keys_a571(self.pointer, $0
-    )
-}
-        )
-    }
-    public func `identityKeys`()  -> [String: String] {
-        return try! FfiConverterDictionaryStringString.lift(
-            try!
-    rustCall() {
-    
-    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_identity_keys_b27a(self.pointer, $0
-    )
-}
-        )
-    }
-    public func `roomKeyCounts`() throws -> RoomKeyCounts {
-        return try FfiConverterTypeRoomKeyCounts.lift(
-            try
-    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_room_key_counts_ed20(self.pointer, $0
-    )
-}
-        )
-    }
-    public func `saveRecoveryKey`(`key`: BackupRecoveryKey?, `version`: String?) throws {
-        try
-    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_save_recovery_key_c94(self.pointer, 
-        FfiConverterOptionTypeBackupRecoveryKey.lower(`key`), 
-        FfiConverterOptionString.lower(`version`), $0
-    )
-}
-    }
+
     public func `userId`()  -> String {
-        return try! FfiConverterString.lift(
-            try!
+        return try!  FfiConverterString.lift(
+            try! 
     rustCall() {
     
-    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_user_id_53ae(self.pointer, $0
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_user_id_4573(self.pointer, $0
     )
 }
         )
     }
-    
+
+    public func `verificationRequestContent`(`userId`: String, `methods`: [String]) throws -> String? {
+        return try  FfiConverterOptionString.lift(
+            try 
+    rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
+    _uniffi_matrix_sdk_crypto_ffi_impl_OlmMachine_verification_request_content_7099(self.pointer, 
+        FfiConverterString.lower(`userId`), 
+        FfiConverterSequenceString.lower(`methods`), $0
+    )
 }
+        )
+    }
+}
+
 
 
 public struct FfiConverterTypeOlmMachine: FfiConverter {
@@ -1234,22 +1354,31 @@ public struct FfiConverterTypeOlmMachine: FfiConverter {
 }
 
 
+public func FfiConverterTypeOlmMachine_lift(_ pointer: UnsafeMutableRawPointer) throws -> OlmMachine {
+    return try FfiConverterTypeOlmMachine.lift(pointer)
+}
+
+public func FfiConverterTypeOlmMachine_lower(_ value: OlmMachine) -> UnsafeMutableRawPointer {
+    return FfiConverterTypeOlmMachine.lower(value)
+}
+
+
 public protocol QrCodeProtocol {
-    func `otherUserId`()  -> String
-    func `otherDeviceId`()  -> String
-    func `flowId`()  -> String
-    func `roomId`()  -> String?
-    func `weStarted`()  -> Bool
-    func `isDone`()  -> Bool
-    func `isCancelled`()  -> Bool
-    func `cancelInfo`()  -> CancelInfo?
-    func `reciprocated`()  -> Bool
-    func `hasBeenScanned`()  -> Bool
-    func `confirm`()  -> ConfirmVerificationResult?
-    func `cancel`(`cancelCode`: String)  -> OutgoingVerificationRequest?
-    func `generateQrCode`()  -> String?
-    func `setChangesListener`(`listener`: QrCodeListener) 
-    func `state`()  -> QrCodeState
+    func `otherUserId`()   -> String
+    func `otherDeviceId`()   -> String
+    func `flowId`()   -> String
+    func `roomId`()   -> String?
+    func `weStarted`()   -> Bool
+    func `isDone`()   -> Bool
+    func `isCancelled`()   -> Bool
+    func `cancelInfo`()   -> CancelInfo?
+    func `reciprocated`()   -> Bool
+    func `hasBeenScanned`()   -> Bool
+    func `confirm`()   -> ConfirmVerificationResult?
+    func `cancel`(`cancelCode`: String)   -> OutgoingVerificationRequest?
+    func `generateQrCode`()   -> String?
+    func `setChangesListener`(`listener`: QrCodeListener)  
+    func `state`()   -> QrCodeState
     
 }
 
@@ -1264,164 +1393,180 @@ public class QrCode: QrCodeProtocol {
     }
 
     deinit {
-        try! rustCall { ffi_matrix_sdk_crypto_ffi_a24c_QrCode_object_free(pointer, $0) }
+        try! rustCall { ffi_matrix_sdk_crypto_ffi_f611_QrCode_object_free(pointer, $0) }
     }
 
     
 
     
+    
+
     public func `otherUserId`()  -> String {
-        return try! FfiConverterString.lift(
-            try!
+        return try!  FfiConverterString.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_QrCode_other_user_id(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_QrCode_other_user_id(self.pointer, $0
     )
 }
         )
     }
+
     public func `otherDeviceId`()  -> String {
-        return try! FfiConverterString.lift(
-            try!
+        return try!  FfiConverterString.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_QrCode_other_device_id(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_QrCode_other_device_id(self.pointer, $0
     )
 }
         )
     }
+
     public func `flowId`()  -> String {
-        return try! FfiConverterString.lift(
-            try!
+        return try!  FfiConverterString.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_QrCode_flow_id(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_QrCode_flow_id(self.pointer, $0
     )
 }
         )
     }
+
     public func `roomId`()  -> String? {
-        return try! FfiConverterOptionString.lift(
-            try!
+        return try!  FfiConverterOptionString.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_QrCode_room_id(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_QrCode_room_id(self.pointer, $0
     )
 }
         )
     }
+
     public func `weStarted`()  -> Bool {
-        return try! FfiConverterBool.lift(
-            try!
+        return try!  FfiConverterBool.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_QrCode_we_started(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_QrCode_we_started(self.pointer, $0
     )
 }
         )
     }
+
     public func `isDone`()  -> Bool {
-        return try! FfiConverterBool.lift(
-            try!
+        return try!  FfiConverterBool.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_QrCode_is_done(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_QrCode_is_done(self.pointer, $0
     )
 }
         )
     }
+
     public func `isCancelled`()  -> Bool {
-        return try! FfiConverterBool.lift(
-            try!
+        return try!  FfiConverterBool.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_QrCode_is_cancelled(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_QrCode_is_cancelled(self.pointer, $0
     )
 }
         )
     }
+
     public func `cancelInfo`()  -> CancelInfo? {
-        return try! FfiConverterOptionTypeCancelInfo.lift(
-            try!
+        return try!  FfiConverterOptionTypeCancelInfo.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_QrCode_cancel_info(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_QrCode_cancel_info(self.pointer, $0
     )
 }
         )
     }
+
     public func `reciprocated`()  -> Bool {
-        return try! FfiConverterBool.lift(
-            try!
+        return try!  FfiConverterBool.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_QrCode_reciprocated(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_QrCode_reciprocated(self.pointer, $0
     )
 }
         )
     }
+
     public func `hasBeenScanned`()  -> Bool {
-        return try! FfiConverterBool.lift(
-            try!
+        return try!  FfiConverterBool.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_QrCode_has_been_scanned(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_QrCode_has_been_scanned(self.pointer, $0
     )
 }
         )
     }
+
     public func `confirm`()  -> ConfirmVerificationResult? {
-        return try! FfiConverterOptionTypeConfirmVerificationResult.lift(
-            try!
+        return try!  FfiConverterOptionTypeConfirmVerificationResult.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_QrCode_confirm(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_QrCode_confirm(self.pointer, $0
     )
 }
         )
     }
+
     public func `cancel`(`cancelCode`: String)  -> OutgoingVerificationRequest? {
-        return try! FfiConverterOptionTypeOutgoingVerificationRequest.lift(
-            try!
+        return try!  FfiConverterOptionTypeOutgoingVerificationRequest.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_QrCode_cancel(self.pointer, 
+    matrix_sdk_crypto_ffi_f611_QrCode_cancel(self.pointer, 
         FfiConverterString.lower(`cancelCode`), $0
     )
 }
         )
     }
+
     public func `generateQrCode`()  -> String? {
-        return try! FfiConverterOptionString.lift(
-            try!
+        return try!  FfiConverterOptionString.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_QrCode_generate_qr_code(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_QrCode_generate_qr_code(self.pointer, $0
     )
 }
         )
     }
+
     public func `setChangesListener`(`listener`: QrCodeListener)  {
-        try!
+        try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_QrCode_set_changes_listener(self.pointer, 
+    matrix_sdk_crypto_ffi_f611_QrCode_set_changes_listener(self.pointer, 
         FfiConverterCallbackInterfaceQrCodeListener.lower(`listener`), $0
     )
 }
     }
+
     public func `state`()  -> QrCodeState {
-        return try! FfiConverterTypeQrCodeState.lift(
-            try!
+        return try!  FfiConverterTypeQrCodeState.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_QrCode_state(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_QrCode_state(self.pointer, $0
     )
 }
         )
     }
-    
 }
+
 
 
 public struct FfiConverterTypeQrCode: FfiConverter {
@@ -1455,20 +1600,29 @@ public struct FfiConverterTypeQrCode: FfiConverter {
 }
 
 
+public func FfiConverterTypeQrCode_lift(_ pointer: UnsafeMutableRawPointer) throws -> QrCode {
+    return try FfiConverterTypeQrCode.lift(pointer)
+}
+
+public func FfiConverterTypeQrCode_lower(_ value: QrCode) -> UnsafeMutableRawPointer {
+    return FfiConverterTypeQrCode.lower(value)
+}
+
+
 public protocol SasProtocol {
-    func `otherUserId`()  -> String
-    func `otherDeviceId`()  -> String
-    func `flowId`()  -> String
-    func `roomId`()  -> String?
-    func `weStarted`()  -> Bool
-    func `isDone`()  -> Bool
-    func `accept`()  -> OutgoingVerificationRequest?
-    func `confirm`() throws -> ConfirmVerificationResult?
-    func `cancel`(`cancelCode`: String)  -> OutgoingVerificationRequest?
-    func `getEmojiIndices`()  -> [Int32]?
-    func `getDecimals`()  -> [Int32]?
-    func `setChangesListener`(`listener`: SasListener) 
-    func `state`()  -> SasState
+    func `otherUserId`()   -> String
+    func `otherDeviceId`()   -> String
+    func `flowId`()   -> String
+    func `roomId`()   -> String?
+    func `weStarted`()   -> Bool
+    func `isDone`()   -> Bool
+    func `accept`()   -> OutgoingVerificationRequest?
+    func `confirm`()  throws -> ConfirmVerificationResult?
+    func `cancel`(`cancelCode`: String)   -> OutgoingVerificationRequest?
+    func `getEmojiIndices`()   -> [Int32]?
+    func `getDecimals`()   -> [Int32]?
+    func `setChangesListener`(`listener`: SasListener)  
+    func `state`()   -> SasState
     
 }
 
@@ -1483,143 +1637,157 @@ public class Sas: SasProtocol {
     }
 
     deinit {
-        try! rustCall { ffi_matrix_sdk_crypto_ffi_a24c_Sas_object_free(pointer, $0) }
+        try! rustCall { ffi_matrix_sdk_crypto_ffi_f611_Sas_object_free(pointer, $0) }
     }
 
     
 
     
+    
+
     public func `otherUserId`()  -> String {
-        return try! FfiConverterString.lift(
-            try!
+        return try!  FfiConverterString.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_Sas_other_user_id(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_Sas_other_user_id(self.pointer, $0
     )
 }
         )
     }
+
     public func `otherDeviceId`()  -> String {
-        return try! FfiConverterString.lift(
-            try!
+        return try!  FfiConverterString.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_Sas_other_device_id(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_Sas_other_device_id(self.pointer, $0
     )
 }
         )
     }
+
     public func `flowId`()  -> String {
-        return try! FfiConverterString.lift(
-            try!
+        return try!  FfiConverterString.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_Sas_flow_id(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_Sas_flow_id(self.pointer, $0
     )
 }
         )
     }
+
     public func `roomId`()  -> String? {
-        return try! FfiConverterOptionString.lift(
-            try!
+        return try!  FfiConverterOptionString.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_Sas_room_id(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_Sas_room_id(self.pointer, $0
     )
 }
         )
     }
+
     public func `weStarted`()  -> Bool {
-        return try! FfiConverterBool.lift(
-            try!
+        return try!  FfiConverterBool.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_Sas_we_started(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_Sas_we_started(self.pointer, $0
     )
 }
         )
     }
+
     public func `isDone`()  -> Bool {
-        return try! FfiConverterBool.lift(
-            try!
+        return try!  FfiConverterBool.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_Sas_is_done(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_Sas_is_done(self.pointer, $0
     )
 }
         )
     }
+
     public func `accept`()  -> OutgoingVerificationRequest? {
-        return try! FfiConverterOptionTypeOutgoingVerificationRequest.lift(
-            try!
+        return try!  FfiConverterOptionTypeOutgoingVerificationRequest.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_Sas_accept(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_Sas_accept(self.pointer, $0
     )
 }
         )
     }
+
     public func `confirm`() throws -> ConfirmVerificationResult? {
-        return try FfiConverterOptionTypeConfirmVerificationResult.lift(
-            try
+        return try  FfiConverterOptionTypeConfirmVerificationResult.lift(
+            try 
     rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_Sas_confirm(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_Sas_confirm(self.pointer, $0
     )
 }
         )
     }
+
     public func `cancel`(`cancelCode`: String)  -> OutgoingVerificationRequest? {
-        return try! FfiConverterOptionTypeOutgoingVerificationRequest.lift(
-            try!
+        return try!  FfiConverterOptionTypeOutgoingVerificationRequest.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_Sas_cancel(self.pointer, 
+    matrix_sdk_crypto_ffi_f611_Sas_cancel(self.pointer, 
         FfiConverterString.lower(`cancelCode`), $0
     )
 }
         )
     }
+
     public func `getEmojiIndices`()  -> [Int32]? {
-        return try! FfiConverterOptionSequenceInt32.lift(
-            try!
+        return try!  FfiConverterOptionSequenceInt32.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_Sas_get_emoji_indices(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_Sas_get_emoji_indices(self.pointer, $0
     )
 }
         )
     }
+
     public func `getDecimals`()  -> [Int32]? {
-        return try! FfiConverterOptionSequenceInt32.lift(
-            try!
+        return try!  FfiConverterOptionSequenceInt32.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_Sas_get_decimals(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_Sas_get_decimals(self.pointer, $0
     )
 }
         )
     }
+
     public func `setChangesListener`(`listener`: SasListener)  {
-        try!
+        try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_Sas_set_changes_listener(self.pointer, 
+    matrix_sdk_crypto_ffi_f611_Sas_set_changes_listener(self.pointer, 
         FfiConverterCallbackInterfaceSasListener.lower(`listener`), $0
     )
 }
     }
+
     public func `state`()  -> SasState {
-        return try! FfiConverterTypeSasState.lift(
-            try!
+        return try!  FfiConverterTypeSasState.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_Sas_state(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_Sas_state(self.pointer, $0
     )
 }
         )
     }
-    
 }
+
 
 
 public struct FfiConverterTypeSas: FfiConverter {
@@ -1653,9 +1821,18 @@ public struct FfiConverterTypeSas: FfiConverter {
 }
 
 
+public func FfiConverterTypeSas_lift(_ pointer: UnsafeMutableRawPointer) throws -> Sas {
+    return try FfiConverterTypeSas.lift(pointer)
+}
+
+public func FfiConverterTypeSas_lower(_ value: Sas) -> UnsafeMutableRawPointer {
+    return FfiConverterTypeSas.lower(value)
+}
+
+
 public protocol VerificationProtocol {
-    func `asQr`()  -> QrCode?
-    func `asSas`()  -> Sas?
+    func `asQr`()   -> QrCode?
+    func `asSas`()   -> Sas?
     
 }
 
@@ -1670,34 +1847,37 @@ public class Verification: VerificationProtocol {
     }
 
     deinit {
-        try! rustCall { ffi_matrix_sdk_crypto_ffi_a24c_Verification_object_free(pointer, $0) }
+        try! rustCall { ffi_matrix_sdk_crypto_ffi_f611_Verification_object_free(pointer, $0) }
     }
 
     
 
     
+    
+
     public func `asQr`()  -> QrCode? {
-        return try! FfiConverterOptionTypeQrCode.lift(
-            try!
+        return try!  FfiConverterOptionTypeQrCode.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_Verification_as_qr(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_Verification_as_qr(self.pointer, $0
     )
 }
         )
     }
+
     public func `asSas`()  -> Sas? {
-        return try! FfiConverterOptionTypeSas.lift(
-            try!
+        return try!  FfiConverterOptionTypeSas.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_Verification_as_sas(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_Verification_as_sas(self.pointer, $0
     )
 }
         )
     }
-    
 }
+
 
 
 public struct FfiConverterTypeVerification: FfiConverter {
@@ -1731,26 +1911,35 @@ public struct FfiConverterTypeVerification: FfiConverter {
 }
 
 
+public func FfiConverterTypeVerification_lift(_ pointer: UnsafeMutableRawPointer) throws -> Verification {
+    return try FfiConverterTypeVerification.lift(pointer)
+}
+
+public func FfiConverterTypeVerification_lower(_ value: Verification) -> UnsafeMutableRawPointer {
+    return FfiConverterTypeVerification.lower(value)
+}
+
+
 public protocol VerificationRequestProtocol {
-    func `otherUserId`()  -> String
-    func `otherDeviceId`()  -> String?
-    func `flowId`()  -> String
-    func `roomId`()  -> String?
-    func `weStarted`()  -> Bool
-    func `isReady`()  -> Bool
-    func `isDone`()  -> Bool
-    func `isPassive`()  -> Bool
-    func `isCancelled`()  -> Bool
-    func `cancelInfo`()  -> CancelInfo?
-    func `theirSupportedMethods`()  -> [String]?
-    func `ourSupportedMethods`()  -> [String]?
-    func `accept`(`methods`: [String])  -> OutgoingVerificationRequest?
-    func `startSasVerification`() throws -> StartSasResult?
-    func `startQrVerification`() throws -> QrCode?
-    func `scanQrCode`(`data`: String)  -> ScanResult?
-    func `cancel`()  -> OutgoingVerificationRequest?
-    func `setChangesListener`(`listener`: VerificationRequestListener) 
-    func `state`()  -> VerificationRequestState
+    func `otherUserId`()   -> String
+    func `otherDeviceId`()   -> String?
+    func `flowId`()   -> String
+    func `roomId`()   -> String?
+    func `weStarted`()   -> Bool
+    func `isReady`()   -> Bool
+    func `isDone`()   -> Bool
+    func `isPassive`()   -> Bool
+    func `isCancelled`()   -> Bool
+    func `cancelInfo`()   -> CancelInfo?
+    func `theirSupportedMethods`()   -> [String]?
+    func `ourSupportedMethods`()   -> [String]?
+    func `accept`(`methods`: [String])   -> OutgoingVerificationRequest?
+    func `startSasVerification`()  throws -> StartSasResult?
+    func `startQrVerification`()  throws -> QrCode?
+    func `scanQrCode`(`data`: String)   -> ScanResult?
+    func `cancel`()   -> OutgoingVerificationRequest?
+    func `setChangesListener`(`listener`: VerificationRequestListener)  
+    func `state`()   -> VerificationRequestState
     
 }
 
@@ -1765,203 +1954,223 @@ public class VerificationRequest: VerificationRequestProtocol {
     }
 
     deinit {
-        try! rustCall { ffi_matrix_sdk_crypto_ffi_a24c_VerificationRequest_object_free(pointer, $0) }
+        try! rustCall { ffi_matrix_sdk_crypto_ffi_f611_VerificationRequest_object_free(pointer, $0) }
     }
 
     
 
     
+    
+
     public func `otherUserId`()  -> String {
-        return try! FfiConverterString.lift(
-            try!
+        return try!  FfiConverterString.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_VerificationRequest_other_user_id(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_VerificationRequest_other_user_id(self.pointer, $0
     )
 }
         )
     }
+
     public func `otherDeviceId`()  -> String? {
-        return try! FfiConverterOptionString.lift(
-            try!
+        return try!  FfiConverterOptionString.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_VerificationRequest_other_device_id(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_VerificationRequest_other_device_id(self.pointer, $0
     )
 }
         )
     }
+
     public func `flowId`()  -> String {
-        return try! FfiConverterString.lift(
-            try!
+        return try!  FfiConverterString.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_VerificationRequest_flow_id(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_VerificationRequest_flow_id(self.pointer, $0
     )
 }
         )
     }
+
     public func `roomId`()  -> String? {
-        return try! FfiConverterOptionString.lift(
-            try!
+        return try!  FfiConverterOptionString.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_VerificationRequest_room_id(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_VerificationRequest_room_id(self.pointer, $0
     )
 }
         )
     }
+
     public func `weStarted`()  -> Bool {
-        return try! FfiConverterBool.lift(
-            try!
+        return try!  FfiConverterBool.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_VerificationRequest_we_started(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_VerificationRequest_we_started(self.pointer, $0
     )
 }
         )
     }
+
     public func `isReady`()  -> Bool {
-        return try! FfiConverterBool.lift(
-            try!
+        return try!  FfiConverterBool.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_VerificationRequest_is_ready(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_VerificationRequest_is_ready(self.pointer, $0
     )
 }
         )
     }
+
     public func `isDone`()  -> Bool {
-        return try! FfiConverterBool.lift(
-            try!
+        return try!  FfiConverterBool.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_VerificationRequest_is_done(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_VerificationRequest_is_done(self.pointer, $0
     )
 }
         )
     }
+
     public func `isPassive`()  -> Bool {
-        return try! FfiConverterBool.lift(
-            try!
+        return try!  FfiConverterBool.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_VerificationRequest_is_passive(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_VerificationRequest_is_passive(self.pointer, $0
     )
 }
         )
     }
+
     public func `isCancelled`()  -> Bool {
-        return try! FfiConverterBool.lift(
-            try!
+        return try!  FfiConverterBool.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_VerificationRequest_is_cancelled(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_VerificationRequest_is_cancelled(self.pointer, $0
     )
 }
         )
     }
+
     public func `cancelInfo`()  -> CancelInfo? {
-        return try! FfiConverterOptionTypeCancelInfo.lift(
-            try!
+        return try!  FfiConverterOptionTypeCancelInfo.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_VerificationRequest_cancel_info(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_VerificationRequest_cancel_info(self.pointer, $0
     )
 }
         )
     }
+
     public func `theirSupportedMethods`()  -> [String]? {
-        return try! FfiConverterOptionSequenceString.lift(
-            try!
+        return try!  FfiConverterOptionSequenceString.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_VerificationRequest_their_supported_methods(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_VerificationRequest_their_supported_methods(self.pointer, $0
     )
 }
         )
     }
+
     public func `ourSupportedMethods`()  -> [String]? {
-        return try! FfiConverterOptionSequenceString.lift(
-            try!
+        return try!  FfiConverterOptionSequenceString.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_VerificationRequest_our_supported_methods(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_VerificationRequest_our_supported_methods(self.pointer, $0
     )
 }
         )
     }
+
     public func `accept`(`methods`: [String])  -> OutgoingVerificationRequest? {
-        return try! FfiConverterOptionTypeOutgoingVerificationRequest.lift(
-            try!
+        return try!  FfiConverterOptionTypeOutgoingVerificationRequest.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_VerificationRequest_accept(self.pointer, 
+    matrix_sdk_crypto_ffi_f611_VerificationRequest_accept(self.pointer, 
         FfiConverterSequenceString.lower(`methods`), $0
     )
 }
         )
     }
+
     public func `startSasVerification`() throws -> StartSasResult? {
-        return try FfiConverterOptionTypeStartSasResult.lift(
-            try
+        return try  FfiConverterOptionTypeStartSasResult.lift(
+            try 
     rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_VerificationRequest_start_sas_verification(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_VerificationRequest_start_sas_verification(self.pointer, $0
     )
 }
         )
     }
+
     public func `startQrVerification`() throws -> QrCode? {
-        return try FfiConverterOptionTypeQrCode.lift(
-            try
+        return try  FfiConverterOptionTypeQrCode.lift(
+            try 
     rustCallWithError(FfiConverterTypeCryptoStoreError.self) {
-    matrix_sdk_crypto_ffi_a24c_VerificationRequest_start_qr_verification(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_VerificationRequest_start_qr_verification(self.pointer, $0
     )
 }
         )
     }
+
     public func `scanQrCode`(`data`: String)  -> ScanResult? {
-        return try! FfiConverterOptionTypeScanResult.lift(
-            try!
+        return try!  FfiConverterOptionTypeScanResult.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_VerificationRequest_scan_qr_code(self.pointer, 
+    matrix_sdk_crypto_ffi_f611_VerificationRequest_scan_qr_code(self.pointer, 
         FfiConverterString.lower(`data`), $0
     )
 }
         )
     }
+
     public func `cancel`()  -> OutgoingVerificationRequest? {
-        return try! FfiConverterOptionTypeOutgoingVerificationRequest.lift(
-            try!
+        return try!  FfiConverterOptionTypeOutgoingVerificationRequest.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_VerificationRequest_cancel(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_VerificationRequest_cancel(self.pointer, $0
     )
 }
         )
     }
+
     public func `setChangesListener`(`listener`: VerificationRequestListener)  {
-        try!
+        try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_VerificationRequest_set_changes_listener(self.pointer, 
+    matrix_sdk_crypto_ffi_f611_VerificationRequest_set_changes_listener(self.pointer, 
         FfiConverterCallbackInterfaceVerificationRequestListener.lower(`listener`), $0
     )
 }
     }
+
     public func `state`()  -> VerificationRequestState {
-        return try! FfiConverterTypeVerificationRequestState.lift(
-            try!
+        return try!  FfiConverterTypeVerificationRequestState.lift(
+            try! 
     rustCall() {
     
-    matrix_sdk_crypto_ffi_a24c_VerificationRequest_state(self.pointer, $0
+    matrix_sdk_crypto_ffi_f611_VerificationRequest_state(self.pointer, $0
     )
 }
         )
     }
-    
 }
+
 
 
 public struct FfiConverterTypeVerificationRequest: FfiConverter {
@@ -1992,6 +2201,15 @@ public struct FfiConverterTypeVerificationRequest: FfiConverter {
     public static func lower(_ value: VerificationRequest) -> UnsafeMutableRawPointer {
         return value.pointer
     }
+}
+
+
+public func FfiConverterTypeVerificationRequest_lift(_ pointer: UnsafeMutableRawPointer) throws -> VerificationRequest {
+    return try FfiConverterTypeVerificationRequest.lift(pointer)
+}
+
+public func FfiConverterTypeVerificationRequest_lower(_ value: VerificationRequest) -> UnsafeMutableRawPointer {
+    return FfiConverterTypeVerificationRequest.lower(value)
 }
 
 
@@ -2299,16 +2517,16 @@ public struct DecryptedEvent {
     public var `senderCurve25519Key`: String
     public var `claimedEd25519Key`: String?
     public var `forwardingCurve25519Chain`: [String]
-    public var `verificationState`: VerificationState
+    public var `shieldState`: ShieldState
 
     // Default memberwise initializers are never public by default, so we
     // declare one manually.
-    public init(`clearEvent`: String, `senderCurve25519Key`: String, `claimedEd25519Key`: String?, `forwardingCurve25519Chain`: [String], `verificationState`: VerificationState) {
+    public init(`clearEvent`: String, `senderCurve25519Key`: String, `claimedEd25519Key`: String?, `forwardingCurve25519Chain`: [String], `shieldState`: ShieldState) {
         self.`clearEvent` = `clearEvent`
         self.`senderCurve25519Key` = `senderCurve25519Key`
         self.`claimedEd25519Key` = `claimedEd25519Key`
         self.`forwardingCurve25519Chain` = `forwardingCurve25519Chain`
-        self.`verificationState` = `verificationState`
+        self.`shieldState` = `shieldState`
     }
 }
 
@@ -2327,7 +2545,7 @@ extension DecryptedEvent: Equatable, Hashable {
         if lhs.`forwardingCurve25519Chain` != rhs.`forwardingCurve25519Chain` {
             return false
         }
-        if lhs.`verificationState` != rhs.`verificationState` {
+        if lhs.`shieldState` != rhs.`shieldState` {
             return false
         }
         return true
@@ -2338,7 +2556,7 @@ extension DecryptedEvent: Equatable, Hashable {
         hasher.combine(`senderCurve25519Key`)
         hasher.combine(`claimedEd25519Key`)
         hasher.combine(`forwardingCurve25519Chain`)
-        hasher.combine(`verificationState`)
+        hasher.combine(`shieldState`)
     }
 }
 
@@ -2350,7 +2568,7 @@ public struct FfiConverterTypeDecryptedEvent: FfiConverterRustBuffer {
             `senderCurve25519Key`: FfiConverterString.read(from: &buf), 
             `claimedEd25519Key`: FfiConverterOptionString.read(from: &buf), 
             `forwardingCurve25519Chain`: FfiConverterSequenceString.read(from: &buf), 
-            `verificationState`: FfiConverterTypeVerificationState.read(from: &buf)
+            `shieldState`: FfiConverterTypeShieldState.read(from: &buf)
         )
     }
 
@@ -2359,7 +2577,7 @@ public struct FfiConverterTypeDecryptedEvent: FfiConverterRustBuffer {
         FfiConverterString.write(value.`senderCurve25519Key`, into: &buf)
         FfiConverterOptionString.write(value.`claimedEd25519Key`, into: &buf)
         FfiConverterSequenceString.write(value.`forwardingCurve25519Chain`, into: &buf)
-        FfiConverterTypeVerificationState.write(value.`verificationState`, into: &buf)
+        FfiConverterTypeShieldState.write(value.`shieldState`, into: &buf)
     }
 }
 
@@ -2808,10 +3026,11 @@ public struct MigrationData {
     public var `pickleKey`: [UInt8]
     public var `crossSigning`: CrossSigningKeyExport
     public var `trackedUsers`: [String]
+    public var `roomSettings`: [String: RoomSettings]
 
     // Default memberwise initializers are never public by default, so we
     // declare one manually.
-    public init(`account`: PickledAccount, `sessions`: [PickledSession], `inboundGroupSessions`: [PickledInboundGroupSession], `backupVersion`: String?, `backupRecoveryKey`: String?, `pickleKey`: [UInt8], `crossSigning`: CrossSigningKeyExport, `trackedUsers`: [String]) {
+    public init(`account`: PickledAccount, `sessions`: [PickledSession], `inboundGroupSessions`: [PickledInboundGroupSession], `backupVersion`: String?, `backupRecoveryKey`: String?, `pickleKey`: [UInt8], `crossSigning`: CrossSigningKeyExport, `trackedUsers`: [String], `roomSettings`: [String: RoomSettings]) {
         self.`account` = `account`
         self.`sessions` = `sessions`
         self.`inboundGroupSessions` = `inboundGroupSessions`
@@ -2820,6 +3039,7 @@ public struct MigrationData {
         self.`pickleKey` = `pickleKey`
         self.`crossSigning` = `crossSigning`
         self.`trackedUsers` = `trackedUsers`
+        self.`roomSettings` = `roomSettings`
     }
 }
 
@@ -2850,6 +3070,9 @@ extension MigrationData: Equatable, Hashable {
         if lhs.`trackedUsers` != rhs.`trackedUsers` {
             return false
         }
+        if lhs.`roomSettings` != rhs.`roomSettings` {
+            return false
+        }
         return true
     }
 
@@ -2862,6 +3085,7 @@ extension MigrationData: Equatable, Hashable {
         hasher.combine(`pickleKey`)
         hasher.combine(`crossSigning`)
         hasher.combine(`trackedUsers`)
+        hasher.combine(`roomSettings`)
     }
 }
 
@@ -2876,7 +3100,8 @@ public struct FfiConverterTypeMigrationData: FfiConverterRustBuffer {
             `backupRecoveryKey`: FfiConverterOptionString.read(from: &buf), 
             `pickleKey`: FfiConverterSequenceUInt8.read(from: &buf), 
             `crossSigning`: FfiConverterTypeCrossSigningKeyExport.read(from: &buf), 
-            `trackedUsers`: FfiConverterSequenceString.read(from: &buf)
+            `trackedUsers`: FfiConverterSequenceString.read(from: &buf), 
+            `roomSettings`: FfiConverterDictionaryStringTypeRoomSettings.read(from: &buf)
         )
     }
 
@@ -2889,6 +3114,7 @@ public struct FfiConverterTypeMigrationData: FfiConverterRustBuffer {
         FfiConverterSequenceUInt8.write(value.`pickleKey`, into: &buf)
         FfiConverterTypeCrossSigningKeyExport.write(value.`crossSigning`, into: &buf)
         FfiConverterSequenceString.write(value.`trackedUsers`, into: &buf)
+        FfiConverterDictionaryStringTypeRoomSettings.write(value.`roomSettings`, into: &buf)
     }
 }
 
@@ -3303,6 +3529,61 @@ public func FfiConverterTypeRoomKeyCounts_lower(_ value: RoomKeyCounts) -> RustB
 }
 
 
+public struct RoomSettings {
+    public var `algorithm`: EventEncryptionAlgorithm
+    public var `onlyAllowTrustedDevices`: Bool
+
+    // Default memberwise initializers are never public by default, so we
+    // declare one manually.
+    public init(`algorithm`: EventEncryptionAlgorithm, `onlyAllowTrustedDevices`: Bool) {
+        self.`algorithm` = `algorithm`
+        self.`onlyAllowTrustedDevices` = `onlyAllowTrustedDevices`
+    }
+}
+
+
+extension RoomSettings: Equatable, Hashable {
+    public static func ==(lhs: RoomSettings, rhs: RoomSettings) -> Bool {
+        if lhs.`algorithm` != rhs.`algorithm` {
+            return false
+        }
+        if lhs.`onlyAllowTrustedDevices` != rhs.`onlyAllowTrustedDevices` {
+            return false
+        }
+        return true
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(`algorithm`)
+        hasher.combine(`onlyAllowTrustedDevices`)
+    }
+}
+
+
+public struct FfiConverterTypeRoomSettings: FfiConverterRustBuffer {
+    public static func read(from buf: inout (data: Data, offset: Data.Index)) throws -> RoomSettings {
+        return try RoomSettings(
+            `algorithm`: FfiConverterTypeEventEncryptionAlgorithm.read(from: &buf), 
+            `onlyAllowTrustedDevices`: FfiConverterBool.read(from: &buf)
+        )
+    }
+
+    public static func write(_ value: RoomSettings, into buf: inout [UInt8]) {
+        FfiConverterTypeEventEncryptionAlgorithm.write(value.`algorithm`, into: &buf)
+        FfiConverterBool.write(value.`onlyAllowTrustedDevices`, into: &buf)
+    }
+}
+
+
+public func FfiConverterTypeRoomSettings_lift(_ buf: RustBuffer) throws -> RoomSettings {
+    return try FfiConverterTypeRoomSettings.lift(buf)
+}
+
+public func FfiConverterTypeRoomSettings_lower(_ value: RoomSettings) -> RustBuffer {
+    return FfiConverterTypeRoomSettings.lower(value)
+}
+
+
 public struct ScanResult {
     public var `qr`: QrCode
     public var `request`: OutgoingVerificationRequest
@@ -3338,6 +3619,156 @@ public func FfiConverterTypeScanResult_lift(_ buf: RustBuffer) throws -> ScanRes
 
 public func FfiConverterTypeScanResult_lower(_ value: ScanResult) -> RustBuffer {
     return FfiConverterTypeScanResult.lower(value)
+}
+
+
+public struct SessionMigrationData {
+    public var `userId`: String
+    public var `deviceId`: String
+    public var `curve25519Key`: String
+    public var `ed25519Key`: String
+    public var `sessions`: [PickledSession]
+    public var `inboundGroupSessions`: [PickledInboundGroupSession]
+    public var `pickleKey`: [UInt8]
+
+    // Default memberwise initializers are never public by default, so we
+    // declare one manually.
+    public init(`userId`: String, `deviceId`: String, `curve25519Key`: String, `ed25519Key`: String, `sessions`: [PickledSession], `inboundGroupSessions`: [PickledInboundGroupSession], `pickleKey`: [UInt8]) {
+        self.`userId` = `userId`
+        self.`deviceId` = `deviceId`
+        self.`curve25519Key` = `curve25519Key`
+        self.`ed25519Key` = `ed25519Key`
+        self.`sessions` = `sessions`
+        self.`inboundGroupSessions` = `inboundGroupSessions`
+        self.`pickleKey` = `pickleKey`
+    }
+}
+
+
+extension SessionMigrationData: Equatable, Hashable {
+    public static func ==(lhs: SessionMigrationData, rhs: SessionMigrationData) -> Bool {
+        if lhs.`userId` != rhs.`userId` {
+            return false
+        }
+        if lhs.`deviceId` != rhs.`deviceId` {
+            return false
+        }
+        if lhs.`curve25519Key` != rhs.`curve25519Key` {
+            return false
+        }
+        if lhs.`ed25519Key` != rhs.`ed25519Key` {
+            return false
+        }
+        if lhs.`sessions` != rhs.`sessions` {
+            return false
+        }
+        if lhs.`inboundGroupSessions` != rhs.`inboundGroupSessions` {
+            return false
+        }
+        if lhs.`pickleKey` != rhs.`pickleKey` {
+            return false
+        }
+        return true
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(`userId`)
+        hasher.combine(`deviceId`)
+        hasher.combine(`curve25519Key`)
+        hasher.combine(`ed25519Key`)
+        hasher.combine(`sessions`)
+        hasher.combine(`inboundGroupSessions`)
+        hasher.combine(`pickleKey`)
+    }
+}
+
+
+public struct FfiConverterTypeSessionMigrationData: FfiConverterRustBuffer {
+    public static func read(from buf: inout (data: Data, offset: Data.Index)) throws -> SessionMigrationData {
+        return try SessionMigrationData(
+            `userId`: FfiConverterString.read(from: &buf), 
+            `deviceId`: FfiConverterString.read(from: &buf), 
+            `curve25519Key`: FfiConverterString.read(from: &buf), 
+            `ed25519Key`: FfiConverterString.read(from: &buf), 
+            `sessions`: FfiConverterSequenceTypePickledSession.read(from: &buf), 
+            `inboundGroupSessions`: FfiConverterSequenceTypePickledInboundGroupSession.read(from: &buf), 
+            `pickleKey`: FfiConverterSequenceUInt8.read(from: &buf)
+        )
+    }
+
+    public static func write(_ value: SessionMigrationData, into buf: inout [UInt8]) {
+        FfiConverterString.write(value.`userId`, into: &buf)
+        FfiConverterString.write(value.`deviceId`, into: &buf)
+        FfiConverterString.write(value.`curve25519Key`, into: &buf)
+        FfiConverterString.write(value.`ed25519Key`, into: &buf)
+        FfiConverterSequenceTypePickledSession.write(value.`sessions`, into: &buf)
+        FfiConverterSequenceTypePickledInboundGroupSession.write(value.`inboundGroupSessions`, into: &buf)
+        FfiConverterSequenceUInt8.write(value.`pickleKey`, into: &buf)
+    }
+}
+
+
+public func FfiConverterTypeSessionMigrationData_lift(_ buf: RustBuffer) throws -> SessionMigrationData {
+    return try FfiConverterTypeSessionMigrationData.lift(buf)
+}
+
+public func FfiConverterTypeSessionMigrationData_lower(_ value: SessionMigrationData) -> RustBuffer {
+    return FfiConverterTypeSessionMigrationData.lower(value)
+}
+
+
+public struct ShieldState {
+    public var `color`: ShieldColor
+    public var `message`: String?
+
+    // Default memberwise initializers are never public by default, so we
+    // declare one manually.
+    public init(`color`: ShieldColor, `message`: String?) {
+        self.`color` = `color`
+        self.`message` = `message`
+    }
+}
+
+
+extension ShieldState: Equatable, Hashable {
+    public static func ==(lhs: ShieldState, rhs: ShieldState) -> Bool {
+        if lhs.`color` != rhs.`color` {
+            return false
+        }
+        if lhs.`message` != rhs.`message` {
+            return false
+        }
+        return true
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(`color`)
+        hasher.combine(`message`)
+    }
+}
+
+
+public struct FfiConverterTypeShieldState: FfiConverterRustBuffer {
+    public static func read(from buf: inout (data: Data, offset: Data.Index)) throws -> ShieldState {
+        return try ShieldState(
+            `color`: FfiConverterTypeShieldColor.read(from: &buf), 
+            `message`: FfiConverterOptionString.read(from: &buf)
+        )
+    }
+
+    public static func write(_ value: ShieldState, into buf: inout [UInt8]) {
+        FfiConverterTypeShieldColor.write(value.`color`, into: &buf)
+        FfiConverterOptionString.write(value.`message`, into: &buf)
+    }
+}
+
+
+public func FfiConverterTypeShieldState_lift(_ buf: RustBuffer) throws -> ShieldState {
+    return try FfiConverterTypeShieldState.lift(buf)
+}
+
+public func FfiConverterTypeShieldState_lower(_ value: ShieldState) -> RustBuffer {
+    return FfiConverterTypeShieldState.lower(value)
 }
 
 
@@ -4193,6 +4624,64 @@ extension SasState: Equatable, Hashable {}
 
 // Note that we don't yet support `indirect` for enums.
 // See https://github.com/mozilla/uniffi-rs/issues/396 for further discussion.
+public enum ShieldColor {
+    
+    case `red`
+    case `grey`
+    case `none`
+}
+
+public struct FfiConverterTypeShieldColor: FfiConverterRustBuffer {
+    typealias SwiftType = ShieldColor
+
+    public static func read(from buf: inout (data: Data, offset: Data.Index)) throws -> ShieldColor {
+        let variant: Int32 = try readInt(&buf)
+        switch variant {
+        
+        case 1: return .`red`
+        
+        case 2: return .`grey`
+        
+        case 3: return .`none`
+        
+        default: throw UniffiInternalError.unexpectedEnumCase
+        }
+    }
+
+    public static func write(_ value: ShieldColor, into buf: inout [UInt8]) {
+        switch value {
+        
+        
+        case .`red`:
+            writeInt(&buf, Int32(1))
+        
+        
+        case .`grey`:
+            writeInt(&buf, Int32(2))
+        
+        
+        case .`none`:
+            writeInt(&buf, Int32(3))
+        
+        }
+    }
+}
+
+
+public func FfiConverterTypeShieldColor_lift(_ buf: RustBuffer) throws -> ShieldColor {
+    return try FfiConverterTypeShieldColor.lift(buf)
+}
+
+public func FfiConverterTypeShieldColor_lower(_ value: ShieldColor) -> RustBuffer {
+    return FfiConverterTypeShieldColor.lower(value)
+}
+
+
+extension ShieldColor: Equatable, Hashable {}
+
+
+// Note that we don't yet support `indirect` for enums.
+// See https://github.com/mozilla/uniffi-rs/issues/396 for further discussion.
 public enum SignatureState {
     
     case `missing`
@@ -4396,64 +4885,6 @@ public func FfiConverterTypeVerificationRequestState_lower(_ value: Verification
 
 
 extension VerificationRequestState: Equatable, Hashable {}
-
-
-// Note that we don't yet support `indirect` for enums.
-// See https://github.com/mozilla/uniffi-rs/issues/396 for further discussion.
-public enum VerificationState {
-    
-    case `trusted`
-    case `untrusted`
-    case `unknownDevice`
-}
-
-public struct FfiConverterTypeVerificationState: FfiConverterRustBuffer {
-    typealias SwiftType = VerificationState
-
-    public static func read(from buf: inout (data: Data, offset: Data.Index)) throws -> VerificationState {
-        let variant: Int32 = try readInt(&buf)
-        switch variant {
-        
-        case 1: return .`trusted`
-        
-        case 2: return .`untrusted`
-        
-        case 3: return .`unknownDevice`
-        
-        default: throw UniffiInternalError.unexpectedEnumCase
-        }
-    }
-
-    public static func write(_ value: VerificationState, into buf: inout [UInt8]) {
-        switch value {
-        
-        
-        case .`trusted`:
-            writeInt(&buf, Int32(1))
-        
-        
-        case .`untrusted`:
-            writeInt(&buf, Int32(2))
-        
-        
-        case .`unknownDevice`:
-            writeInt(&buf, Int32(3))
-        
-        }
-    }
-}
-
-
-public func FfiConverterTypeVerificationState_lift(_ buf: RustBuffer) throws -> VerificationState {
-    return try FfiConverterTypeVerificationState.lift(buf)
-}
-
-public func FfiConverterTypeVerificationState_lower(_ value: VerificationState) -> RustBuffer {
-    return FfiConverterTypeVerificationState.lower(value)
-}
-
-
-extension VerificationState: Equatable, Hashable {}
 
 
 
@@ -5075,6 +5506,10 @@ fileprivate class UniFFICallbackHandleMap<T> {
 // Magic number for the Rust proxy to call using the same mechanism as every other method,
 // to free the callback once it's dropped by Rust.
 private let IDX_CALLBACK_FREE: Int32 = 0
+// Callback return codes
+private let UNIFFI_CALLBACK_SUCCESS: Int32 = 0
+private let UNIFFI_CALLBACK_ERROR: Int32 = 1
+private let UNIFFI_CALLBACK_UNEXPECTED_ERROR: Int32 = 2
 
 // Declaration and FfiConverters for Logger Callback Interface
 
@@ -5085,70 +5520,63 @@ public protocol Logger : AnyObject {
 
 // The ForeignCallback that is passed to Rust.
 fileprivate let foreignCallbackCallbackInterfaceLogger : ForeignCallback =
-    { (handle: UniFFICallbackHandle, method: Int32, args: RustBuffer, out_buf: UnsafeMutablePointer<RustBuffer>) -> Int32 in
-        func `invokeLog`(_ swiftCallbackInterface: Logger, _ args: RustBuffer) throws -> RustBuffer {
-        defer { args.deallocate() }
+    { (handle: UniFFICallbackHandle, method: Int32, argsData: UnsafePointer<UInt8>, argsLen: Int32, out_buf: UnsafeMutablePointer<RustBuffer>) -> Int32 in
+    
 
-            var reader = createReader(data: Data(rustBuffer: args))
-            swiftCallbackInterface.`log`(
+    func `invokeLog`(_ swiftCallbackInterface: Logger, _ argsData: UnsafePointer<UInt8>, _ argsLen: Int32, _ out_buf: UnsafeMutablePointer<RustBuffer>) throws -> Int32 {
+        var reader = createReader(data: Data(bytes: argsData, count: Int(argsLen)))
+        func makeCall() throws -> Int32 {
+            try swiftCallbackInterface.`log`(
                     `logLine`:  try FfiConverterString.read(from: &reader)
                     )
-            return RustBuffer()
-                // TODO catch errors and report them back to Rust.
-                // https://github.com/mozilla/uniffi-rs/issues/351
-
+            return UNIFFI_CALLBACK_SUCCESS
         }
-        
-
-        let cb: Logger
-        do {
-            cb = try FfiConverterCallbackInterfaceLogger.lift(handle)
-        } catch {
-            out_buf.pointee = FfiConverterString.lower("Logger: Invalid handle")
-            return -1
-        }
-
-        switch method {
-            case IDX_CALLBACK_FREE:
-                FfiConverterCallbackInterfaceLogger.drop(handle: handle)
-                // No return value.
-                // See docs of ForeignCallback in `uniffi/src/ffi/foreigncallbacks.rs`
-                return 0
-            case 1:
-                do {
-                    out_buf.pointee = try `invokeLog`(cb, args)
-                    // Value written to out buffer.
-                    // See docs of ForeignCallback in `uniffi/src/ffi/foreigncallbacks.rs`
-                    return 1
-                } catch let error {
-                    out_buf.pointee = FfiConverterString.lower(String(describing: error))
-                    return -1
-                }
-            
-            // This should never happen, because an out of bounds method index won't
-            // ever be used. Once we can catch errors, we should return an InternalError.
-            // https://github.com/mozilla/uniffi-rs/issues/351
-            default:
-                // An unexpected error happened.
-                // See docs of ForeignCallback in `uniffi/src/ffi/foreigncallbacks.rs`
-                return -1
-        }
+        return try makeCall()
     }
+
+
+    switch method {
+        case IDX_CALLBACK_FREE:
+            FfiConverterCallbackInterfaceLogger.drop(handle: handle)
+            // Sucessful return
+            // See docs of ForeignCallback in `uniffi_core/src/ffi/foreigncallbacks.rs`
+            return UNIFFI_CALLBACK_SUCCESS
+        case 1:
+            let cb: Logger
+            do {
+                cb = try FfiConverterCallbackInterfaceLogger.lift(handle)
+            } catch {
+                out_buf.pointee = FfiConverterString.lower("Logger: Invalid handle")
+                return UNIFFI_CALLBACK_UNEXPECTED_ERROR
+            }
+            do {
+                return try `invokeLog`(cb, argsData, argsLen, out_buf)
+            } catch let error {
+                out_buf.pointee = FfiConverterString.lower(String(describing: error))
+                return UNIFFI_CALLBACK_UNEXPECTED_ERROR
+            }
+        
+        // This should never happen, because an out of bounds method index won't
+        // ever be used. Once we can catch errors, we should return an InternalError.
+        // https://github.com/mozilla/uniffi-rs/issues/351
+        default:
+            // An unexpected error happened.
+            // See docs of ForeignCallback in `uniffi_core/src/ffi/foreigncallbacks.rs`
+            return UNIFFI_CALLBACK_UNEXPECTED_ERROR
+    }
+}
 
 // FfiConverter protocol for callback interfaces
 fileprivate struct FfiConverterCallbackInterfaceLogger {
-    // Initialize our callback method with the scaffolding code
-    private static var callbackInitialized = false
-    private static func initCallback() {
+    private static let initCallbackOnce: () = {
+        // Swift ensures this initializer code will once run once, even when accessed by multiple threads.
         try! rustCall { (err: UnsafeMutablePointer<RustCallStatus>) in
-                ffi_matrix_sdk_crypto_ffi_a24c_Logger_init_callback(foreignCallbackCallbackInterfaceLogger, err)
+            ffi_matrix_sdk_crypto_ffi_f611_Logger_init_callback(foreignCallbackCallbackInterfaceLogger, err)
         }
-    }
+    }()
+
     private static func ensureCallbackinitialized() {
-        if !callbackInitialized {
-            initCallback()
-            callbackInitialized = true
-        }
+        _ = initCallbackOnce
     }
 
     static func drop(handle: UniFFICallbackHandle) {
@@ -5199,71 +5627,64 @@ public protocol ProgressListener : AnyObject {
 
 // The ForeignCallback that is passed to Rust.
 fileprivate let foreignCallbackCallbackInterfaceProgressListener : ForeignCallback =
-    { (handle: UniFFICallbackHandle, method: Int32, args: RustBuffer, out_buf: UnsafeMutablePointer<RustBuffer>) -> Int32 in
-        func `invokeOnProgress`(_ swiftCallbackInterface: ProgressListener, _ args: RustBuffer) throws -> RustBuffer {
-        defer { args.deallocate() }
+    { (handle: UniFFICallbackHandle, method: Int32, argsData: UnsafePointer<UInt8>, argsLen: Int32, out_buf: UnsafeMutablePointer<RustBuffer>) -> Int32 in
+    
 
-            var reader = createReader(data: Data(rustBuffer: args))
-            swiftCallbackInterface.`onProgress`(
+    func `invokeOnProgress`(_ swiftCallbackInterface: ProgressListener, _ argsData: UnsafePointer<UInt8>, _ argsLen: Int32, _ out_buf: UnsafeMutablePointer<RustBuffer>) throws -> Int32 {
+        var reader = createReader(data: Data(bytes: argsData, count: Int(argsLen)))
+        func makeCall() throws -> Int32 {
+            try swiftCallbackInterface.`onProgress`(
                     `progress`:  try FfiConverterInt32.read(from: &reader), 
                     `total`:  try FfiConverterInt32.read(from: &reader)
                     )
-            return RustBuffer()
-                // TODO catch errors and report them back to Rust.
-                // https://github.com/mozilla/uniffi-rs/issues/351
-
+            return UNIFFI_CALLBACK_SUCCESS
         }
-        
-
-        let cb: ProgressListener
-        do {
-            cb = try FfiConverterCallbackInterfaceProgressListener.lift(handle)
-        } catch {
-            out_buf.pointee = FfiConverterString.lower("ProgressListener: Invalid handle")
-            return -1
-        }
-
-        switch method {
-            case IDX_CALLBACK_FREE:
-                FfiConverterCallbackInterfaceProgressListener.drop(handle: handle)
-                // No return value.
-                // See docs of ForeignCallback in `uniffi/src/ffi/foreigncallbacks.rs`
-                return 0
-            case 1:
-                do {
-                    out_buf.pointee = try `invokeOnProgress`(cb, args)
-                    // Value written to out buffer.
-                    // See docs of ForeignCallback in `uniffi/src/ffi/foreigncallbacks.rs`
-                    return 1
-                } catch let error {
-                    out_buf.pointee = FfiConverterString.lower(String(describing: error))
-                    return -1
-                }
-            
-            // This should never happen, because an out of bounds method index won't
-            // ever be used. Once we can catch errors, we should return an InternalError.
-            // https://github.com/mozilla/uniffi-rs/issues/351
-            default:
-                // An unexpected error happened.
-                // See docs of ForeignCallback in `uniffi/src/ffi/foreigncallbacks.rs`
-                return -1
-        }
+        return try makeCall()
     }
+
+
+    switch method {
+        case IDX_CALLBACK_FREE:
+            FfiConverterCallbackInterfaceProgressListener.drop(handle: handle)
+            // Sucessful return
+            // See docs of ForeignCallback in `uniffi_core/src/ffi/foreigncallbacks.rs`
+            return UNIFFI_CALLBACK_SUCCESS
+        case 1:
+            let cb: ProgressListener
+            do {
+                cb = try FfiConverterCallbackInterfaceProgressListener.lift(handle)
+            } catch {
+                out_buf.pointee = FfiConverterString.lower("ProgressListener: Invalid handle")
+                return UNIFFI_CALLBACK_UNEXPECTED_ERROR
+            }
+            do {
+                return try `invokeOnProgress`(cb, argsData, argsLen, out_buf)
+            } catch let error {
+                out_buf.pointee = FfiConverterString.lower(String(describing: error))
+                return UNIFFI_CALLBACK_UNEXPECTED_ERROR
+            }
+        
+        // This should never happen, because an out of bounds method index won't
+        // ever be used. Once we can catch errors, we should return an InternalError.
+        // https://github.com/mozilla/uniffi-rs/issues/351
+        default:
+            // An unexpected error happened.
+            // See docs of ForeignCallback in `uniffi_core/src/ffi/foreigncallbacks.rs`
+            return UNIFFI_CALLBACK_UNEXPECTED_ERROR
+    }
+}
 
 // FfiConverter protocol for callback interfaces
 fileprivate struct FfiConverterCallbackInterfaceProgressListener {
-    // Initialize our callback method with the scaffolding code
-    private static var callbackInitialized = false
-    private static func initCallback() {
+    private static let initCallbackOnce: () = {
+        // Swift ensures this initializer code will once run once, even when accessed by multiple threads.
         try! rustCall { (err: UnsafeMutablePointer<RustCallStatus>) in
-                ffi_matrix_sdk_crypto_ffi_a24c_ProgressListener_init_callback(foreignCallbackCallbackInterfaceProgressListener, err)
+            ffi_matrix_sdk_crypto_ffi_f611_ProgressListener_init_callback(foreignCallbackCallbackInterfaceProgressListener, err)
         }
-    }
+    }()
+
     private static func ensureCallbackinitialized() {
-        if !callbackInitialized {
-            initCallback()
-            callbackInitialized = true
-        }
+        _ = initCallbackOnce
     }
 
     static func drop(handle: UniFFICallbackHandle) {
@@ -5314,70 +5735,63 @@ public protocol QrCodeListener : AnyObject {
 
 // The ForeignCallback that is passed to Rust.
 fileprivate let foreignCallbackCallbackInterfaceQrCodeListener : ForeignCallback =
-    { (handle: UniFFICallbackHandle, method: Int32, args: RustBuffer, out_buf: UnsafeMutablePointer<RustBuffer>) -> Int32 in
-        func `invokeOnChange`(_ swiftCallbackInterface: QrCodeListener, _ args: RustBuffer) throws -> RustBuffer {
-        defer { args.deallocate() }
+    { (handle: UniFFICallbackHandle, method: Int32, argsData: UnsafePointer<UInt8>, argsLen: Int32, out_buf: UnsafeMutablePointer<RustBuffer>) -> Int32 in
+    
 
-            var reader = createReader(data: Data(rustBuffer: args))
-            swiftCallbackInterface.`onChange`(
+    func `invokeOnChange`(_ swiftCallbackInterface: QrCodeListener, _ argsData: UnsafePointer<UInt8>, _ argsLen: Int32, _ out_buf: UnsafeMutablePointer<RustBuffer>) throws -> Int32 {
+        var reader = createReader(data: Data(bytes: argsData, count: Int(argsLen)))
+        func makeCall() throws -> Int32 {
+            try swiftCallbackInterface.`onChange`(
                     `state`:  try FfiConverterTypeQrCodeState.read(from: &reader)
                     )
-            return RustBuffer()
-                // TODO catch errors and report them back to Rust.
-                // https://github.com/mozilla/uniffi-rs/issues/351
-
+            return UNIFFI_CALLBACK_SUCCESS
         }
-        
-
-        let cb: QrCodeListener
-        do {
-            cb = try FfiConverterCallbackInterfaceQrCodeListener.lift(handle)
-        } catch {
-            out_buf.pointee = FfiConverterString.lower("QrCodeListener: Invalid handle")
-            return -1
-        }
-
-        switch method {
-            case IDX_CALLBACK_FREE:
-                FfiConverterCallbackInterfaceQrCodeListener.drop(handle: handle)
-                // No return value.
-                // See docs of ForeignCallback in `uniffi/src/ffi/foreigncallbacks.rs`
-                return 0
-            case 1:
-                do {
-                    out_buf.pointee = try `invokeOnChange`(cb, args)
-                    // Value written to out buffer.
-                    // See docs of ForeignCallback in `uniffi/src/ffi/foreigncallbacks.rs`
-                    return 1
-                } catch let error {
-                    out_buf.pointee = FfiConverterString.lower(String(describing: error))
-                    return -1
-                }
-            
-            // This should never happen, because an out of bounds method index won't
-            // ever be used. Once we can catch errors, we should return an InternalError.
-            // https://github.com/mozilla/uniffi-rs/issues/351
-            default:
-                // An unexpected error happened.
-                // See docs of ForeignCallback in `uniffi/src/ffi/foreigncallbacks.rs`
-                return -1
-        }
+        return try makeCall()
     }
+
+
+    switch method {
+        case IDX_CALLBACK_FREE:
+            FfiConverterCallbackInterfaceQrCodeListener.drop(handle: handle)
+            // Sucessful return
+            // See docs of ForeignCallback in `uniffi_core/src/ffi/foreigncallbacks.rs`
+            return UNIFFI_CALLBACK_SUCCESS
+        case 1:
+            let cb: QrCodeListener
+            do {
+                cb = try FfiConverterCallbackInterfaceQrCodeListener.lift(handle)
+            } catch {
+                out_buf.pointee = FfiConverterString.lower("QrCodeListener: Invalid handle")
+                return UNIFFI_CALLBACK_UNEXPECTED_ERROR
+            }
+            do {
+                return try `invokeOnChange`(cb, argsData, argsLen, out_buf)
+            } catch let error {
+                out_buf.pointee = FfiConverterString.lower(String(describing: error))
+                return UNIFFI_CALLBACK_UNEXPECTED_ERROR
+            }
+        
+        // This should never happen, because an out of bounds method index won't
+        // ever be used. Once we can catch errors, we should return an InternalError.
+        // https://github.com/mozilla/uniffi-rs/issues/351
+        default:
+            // An unexpected error happened.
+            // See docs of ForeignCallback in `uniffi_core/src/ffi/foreigncallbacks.rs`
+            return UNIFFI_CALLBACK_UNEXPECTED_ERROR
+    }
+}
 
 // FfiConverter protocol for callback interfaces
 fileprivate struct FfiConverterCallbackInterfaceQrCodeListener {
-    // Initialize our callback method with the scaffolding code
-    private static var callbackInitialized = false
-    private static func initCallback() {
+    private static let initCallbackOnce: () = {
+        // Swift ensures this initializer code will once run once, even when accessed by multiple threads.
         try! rustCall { (err: UnsafeMutablePointer<RustCallStatus>) in
-                ffi_matrix_sdk_crypto_ffi_a24c_QrCodeListener_init_callback(foreignCallbackCallbackInterfaceQrCodeListener, err)
+            ffi_matrix_sdk_crypto_ffi_f611_QrCodeListener_init_callback(foreignCallbackCallbackInterfaceQrCodeListener, err)
         }
-    }
+    }()
+
     private static func ensureCallbackinitialized() {
-        if !callbackInitialized {
-            initCallback()
-            callbackInitialized = true
-        }
+        _ = initCallbackOnce
     }
 
     static func drop(handle: UniFFICallbackHandle) {
@@ -5428,70 +5842,63 @@ public protocol SasListener : AnyObject {
 
 // The ForeignCallback that is passed to Rust.
 fileprivate let foreignCallbackCallbackInterfaceSasListener : ForeignCallback =
-    { (handle: UniFFICallbackHandle, method: Int32, args: RustBuffer, out_buf: UnsafeMutablePointer<RustBuffer>) -> Int32 in
-        func `invokeOnChange`(_ swiftCallbackInterface: SasListener, _ args: RustBuffer) throws -> RustBuffer {
-        defer { args.deallocate() }
+    { (handle: UniFFICallbackHandle, method: Int32, argsData: UnsafePointer<UInt8>, argsLen: Int32, out_buf: UnsafeMutablePointer<RustBuffer>) -> Int32 in
+    
 
-            var reader = createReader(data: Data(rustBuffer: args))
-            swiftCallbackInterface.`onChange`(
+    func `invokeOnChange`(_ swiftCallbackInterface: SasListener, _ argsData: UnsafePointer<UInt8>, _ argsLen: Int32, _ out_buf: UnsafeMutablePointer<RustBuffer>) throws -> Int32 {
+        var reader = createReader(data: Data(bytes: argsData, count: Int(argsLen)))
+        func makeCall() throws -> Int32 {
+            try swiftCallbackInterface.`onChange`(
                     `state`:  try FfiConverterTypeSasState.read(from: &reader)
                     )
-            return RustBuffer()
-                // TODO catch errors and report them back to Rust.
-                // https://github.com/mozilla/uniffi-rs/issues/351
-
+            return UNIFFI_CALLBACK_SUCCESS
         }
-        
-
-        let cb: SasListener
-        do {
-            cb = try FfiConverterCallbackInterfaceSasListener.lift(handle)
-        } catch {
-            out_buf.pointee = FfiConverterString.lower("SasListener: Invalid handle")
-            return -1
-        }
-
-        switch method {
-            case IDX_CALLBACK_FREE:
-                FfiConverterCallbackInterfaceSasListener.drop(handle: handle)
-                // No return value.
-                // See docs of ForeignCallback in `uniffi/src/ffi/foreigncallbacks.rs`
-                return 0
-            case 1:
-                do {
-                    out_buf.pointee = try `invokeOnChange`(cb, args)
-                    // Value written to out buffer.
-                    // See docs of ForeignCallback in `uniffi/src/ffi/foreigncallbacks.rs`
-                    return 1
-                } catch let error {
-                    out_buf.pointee = FfiConverterString.lower(String(describing: error))
-                    return -1
-                }
-            
-            // This should never happen, because an out of bounds method index won't
-            // ever be used. Once we can catch errors, we should return an InternalError.
-            // https://github.com/mozilla/uniffi-rs/issues/351
-            default:
-                // An unexpected error happened.
-                // See docs of ForeignCallback in `uniffi/src/ffi/foreigncallbacks.rs`
-                return -1
-        }
+        return try makeCall()
     }
+
+
+    switch method {
+        case IDX_CALLBACK_FREE:
+            FfiConverterCallbackInterfaceSasListener.drop(handle: handle)
+            // Sucessful return
+            // See docs of ForeignCallback in `uniffi_core/src/ffi/foreigncallbacks.rs`
+            return UNIFFI_CALLBACK_SUCCESS
+        case 1:
+            let cb: SasListener
+            do {
+                cb = try FfiConverterCallbackInterfaceSasListener.lift(handle)
+            } catch {
+                out_buf.pointee = FfiConverterString.lower("SasListener: Invalid handle")
+                return UNIFFI_CALLBACK_UNEXPECTED_ERROR
+            }
+            do {
+                return try `invokeOnChange`(cb, argsData, argsLen, out_buf)
+            } catch let error {
+                out_buf.pointee = FfiConverterString.lower(String(describing: error))
+                return UNIFFI_CALLBACK_UNEXPECTED_ERROR
+            }
+        
+        // This should never happen, because an out of bounds method index won't
+        // ever be used. Once we can catch errors, we should return an InternalError.
+        // https://github.com/mozilla/uniffi-rs/issues/351
+        default:
+            // An unexpected error happened.
+            // See docs of ForeignCallback in `uniffi_core/src/ffi/foreigncallbacks.rs`
+            return UNIFFI_CALLBACK_UNEXPECTED_ERROR
+    }
+}
 
 // FfiConverter protocol for callback interfaces
 fileprivate struct FfiConverterCallbackInterfaceSasListener {
-    // Initialize our callback method with the scaffolding code
-    private static var callbackInitialized = false
-    private static func initCallback() {
+    private static let initCallbackOnce: () = {
+        // Swift ensures this initializer code will once run once, even when accessed by multiple threads.
         try! rustCall { (err: UnsafeMutablePointer<RustCallStatus>) in
-                ffi_matrix_sdk_crypto_ffi_a24c_SasListener_init_callback(foreignCallbackCallbackInterfaceSasListener, err)
+            ffi_matrix_sdk_crypto_ffi_f611_SasListener_init_callback(foreignCallbackCallbackInterfaceSasListener, err)
         }
-    }
+    }()
+
     private static func ensureCallbackinitialized() {
-        if !callbackInitialized {
-            initCallback()
-            callbackInitialized = true
-        }
+        _ = initCallbackOnce
     }
 
     static func drop(handle: UniFFICallbackHandle) {
@@ -5542,70 +5949,63 @@ public protocol VerificationRequestListener : AnyObject {
 
 // The ForeignCallback that is passed to Rust.
 fileprivate let foreignCallbackCallbackInterfaceVerificationRequestListener : ForeignCallback =
-    { (handle: UniFFICallbackHandle, method: Int32, args: RustBuffer, out_buf: UnsafeMutablePointer<RustBuffer>) -> Int32 in
-        func `invokeOnChange`(_ swiftCallbackInterface: VerificationRequestListener, _ args: RustBuffer) throws -> RustBuffer {
-        defer { args.deallocate() }
+    { (handle: UniFFICallbackHandle, method: Int32, argsData: UnsafePointer<UInt8>, argsLen: Int32, out_buf: UnsafeMutablePointer<RustBuffer>) -> Int32 in
+    
 
-            var reader = createReader(data: Data(rustBuffer: args))
-            swiftCallbackInterface.`onChange`(
+    func `invokeOnChange`(_ swiftCallbackInterface: VerificationRequestListener, _ argsData: UnsafePointer<UInt8>, _ argsLen: Int32, _ out_buf: UnsafeMutablePointer<RustBuffer>) throws -> Int32 {
+        var reader = createReader(data: Data(bytes: argsData, count: Int(argsLen)))
+        func makeCall() throws -> Int32 {
+            try swiftCallbackInterface.`onChange`(
                     `state`:  try FfiConverterTypeVerificationRequestState.read(from: &reader)
                     )
-            return RustBuffer()
-                // TODO catch errors and report them back to Rust.
-                // https://github.com/mozilla/uniffi-rs/issues/351
-
+            return UNIFFI_CALLBACK_SUCCESS
         }
-        
-
-        let cb: VerificationRequestListener
-        do {
-            cb = try FfiConverterCallbackInterfaceVerificationRequestListener.lift(handle)
-        } catch {
-            out_buf.pointee = FfiConverterString.lower("VerificationRequestListener: Invalid handle")
-            return -1
-        }
-
-        switch method {
-            case IDX_CALLBACK_FREE:
-                FfiConverterCallbackInterfaceVerificationRequestListener.drop(handle: handle)
-                // No return value.
-                // See docs of ForeignCallback in `uniffi/src/ffi/foreigncallbacks.rs`
-                return 0
-            case 1:
-                do {
-                    out_buf.pointee = try `invokeOnChange`(cb, args)
-                    // Value written to out buffer.
-                    // See docs of ForeignCallback in `uniffi/src/ffi/foreigncallbacks.rs`
-                    return 1
-                } catch let error {
-                    out_buf.pointee = FfiConverterString.lower(String(describing: error))
-                    return -1
-                }
-            
-            // This should never happen, because an out of bounds method index won't
-            // ever be used. Once we can catch errors, we should return an InternalError.
-            // https://github.com/mozilla/uniffi-rs/issues/351
-            default:
-                // An unexpected error happened.
-                // See docs of ForeignCallback in `uniffi/src/ffi/foreigncallbacks.rs`
-                return -1
-        }
+        return try makeCall()
     }
+
+
+    switch method {
+        case IDX_CALLBACK_FREE:
+            FfiConverterCallbackInterfaceVerificationRequestListener.drop(handle: handle)
+            // Sucessful return
+            // See docs of ForeignCallback in `uniffi_core/src/ffi/foreigncallbacks.rs`
+            return UNIFFI_CALLBACK_SUCCESS
+        case 1:
+            let cb: VerificationRequestListener
+            do {
+                cb = try FfiConverterCallbackInterfaceVerificationRequestListener.lift(handle)
+            } catch {
+                out_buf.pointee = FfiConverterString.lower("VerificationRequestListener: Invalid handle")
+                return UNIFFI_CALLBACK_UNEXPECTED_ERROR
+            }
+            do {
+                return try `invokeOnChange`(cb, argsData, argsLen, out_buf)
+            } catch let error {
+                out_buf.pointee = FfiConverterString.lower(String(describing: error))
+                return UNIFFI_CALLBACK_UNEXPECTED_ERROR
+            }
+        
+        // This should never happen, because an out of bounds method index won't
+        // ever be used. Once we can catch errors, we should return an InternalError.
+        // https://github.com/mozilla/uniffi-rs/issues/351
+        default:
+            // An unexpected error happened.
+            // See docs of ForeignCallback in `uniffi_core/src/ffi/foreigncallbacks.rs`
+            return UNIFFI_CALLBACK_UNEXPECTED_ERROR
+    }
+}
 
 // FfiConverter protocol for callback interfaces
 fileprivate struct FfiConverterCallbackInterfaceVerificationRequestListener {
-    // Initialize our callback method with the scaffolding code
-    private static var callbackInitialized = false
-    private static func initCallback() {
+    private static let initCallbackOnce: () = {
+        // Swift ensures this initializer code will once run once, even when accessed by multiple threads.
         try! rustCall { (err: UnsafeMutablePointer<RustCallStatus>) in
-                ffi_matrix_sdk_crypto_ffi_a24c_VerificationRequestListener_init_callback(foreignCallbackCallbackInterfaceVerificationRequestListener, err)
+            ffi_matrix_sdk_crypto_ffi_f611_VerificationRequestListener_init_callback(foreignCallbackCallbackInterfaceVerificationRequestListener, err)
         }
-    }
+    }()
+
     private static func ensureCallbackinitialized() {
-        if !callbackInitialized {
-            initCallback()
-            callbackInitialized = true
-        }
+        _ = initCallbackOnce
     }
 
     static func drop(handle: UniFFICallbackHandle) {
@@ -5913,6 +6313,27 @@ fileprivate struct FfiConverterOptionTypeRequestVerificationResult: FfiConverter
         switch try readInt(&buf) as Int8 {
         case 0: return nil
         case 1: return try FfiConverterTypeRequestVerificationResult.read(from: &buf)
+        default: throw UniffiInternalError.unexpectedOptionalTag
+        }
+    }
+}
+
+fileprivate struct FfiConverterOptionTypeRoomSettings: FfiConverterRustBuffer {
+    typealias SwiftType = RoomSettings?
+
+    public static func write(_ value: SwiftType, into buf: inout [UInt8]) {
+        guard let value = value else {
+            writeInt(&buf, Int8(0))
+            return
+        }
+        writeInt(&buf, Int8(1))
+        FfiConverterTypeRoomSettings.write(value, into: &buf)
+    }
+
+    public static func read(from buf: inout (data: Data, offset: Data.Index)) throws -> SwiftType {
+        switch try readInt(&buf) as Int8 {
+        case 0: return nil
+        case 1: return try FfiConverterTypeRoomSettings.read(from: &buf)
         default: throw UniffiInternalError.unexpectedOptionalTag
         }
     }
@@ -6330,6 +6751,29 @@ fileprivate struct FfiConverterDictionaryStringString: FfiConverterRustBuffer {
     }
 }
 
+fileprivate struct FfiConverterDictionaryStringTypeRoomSettings: FfiConverterRustBuffer {
+    public static func write(_ value: [String: RoomSettings], into buf: inout [UInt8]) {
+        let len = Int32(value.count)
+        writeInt(&buf, len)
+        for (key, value) in value {
+            FfiConverterString.write(key, into: &buf)
+            FfiConverterTypeRoomSettings.write(value, into: &buf)
+        }
+    }
+
+    public static func read(from buf: inout (data: Data, offset: Data.Index)) throws -> [String: RoomSettings] {
+        let len: Int32 = try readInt(&buf)
+        var dict = [String: RoomSettings]()
+        dict.reserveCapacity(Int(len))
+        for _ in 0..<len {
+            let key = try FfiConverterString.read(from: &buf)
+            let value = try FfiConverterTypeRoomSettings.read(from: &buf)
+            dict[key] = value
+        }
+        return dict
+    }
+}
+
 fileprivate struct FfiConverterDictionaryStringTypeSignatureState: FfiConverterRustBuffer {
     public static func write(_ value: [String: SignatureState], into buf: inout [UInt8]) {
         let len = Int32(value.count)
@@ -6423,22 +6867,17 @@ fileprivate struct FfiConverterDictionaryStringDictionaryStringSequenceString: F
 }
 
 public func `setLogger`(`logger`: Logger)  {
-    try!
-    
-    rustCall() {
-    
-    matrix_sdk_crypto_ffi_a24c_set_logger(
+    try! rustCall() {
+    matrix_sdk_crypto_ffi_f611_set_logger(
         FfiConverterCallbackInterfaceLogger.lower(`logger`), $0)
 }
 }
 
 
+
 public func `migrate`(`data`: MigrationData, `path`: String, `passphrase`: String?, `progressListener`: ProgressListener) throws {
-    try
-    
-    rustCallWithError(FfiConverterTypeMigrationError.self) {
-    
-    matrix_sdk_crypto_ffi_a24c_migrate(
+    try rustCallWithError(FfiConverterTypeMigrationError.self) {
+    matrix_sdk_crypto_ffi_f611_migrate(
         FfiConverterTypeMigrationData.lower(`data`), 
         FfiConverterString.lower(`path`), 
         FfiConverterOptionString.lower(`passphrase`), 
@@ -6446,6 +6885,46 @@ public func `migrate`(`data`: MigrationData, `path`: String, `passphrase`: Strin
 }
 }
 
+
+
+public func `migrateSessions`(`data`: SessionMigrationData, `path`: String, `passphrase`: String?, `progressListener`: ProgressListener) throws {
+    try rustCallWithError(FfiConverterTypeMigrationError.self) {
+    matrix_sdk_crypto_ffi_f611_migrate_sessions(
+        FfiConverterTypeSessionMigrationData.lower(`data`), 
+        FfiConverterString.lower(`path`), 
+        FfiConverterOptionString.lower(`passphrase`), 
+        FfiConverterCallbackInterfaceProgressListener.lower(`progressListener`), $0)
+}
+}
+
+
+
+public func `migrateRoomSettings`(`roomSettings`: [String: RoomSettings], `path`: String, `passphrase`: String?) throws {
+    try rustCallWithError(FfiConverterTypeMigrationError.self) {
+    matrix_sdk_crypto_ffi_f611_migrate_room_settings(
+        FfiConverterDictionaryStringTypeRoomSettings.lower(`roomSettings`), 
+        FfiConverterString.lower(`path`), 
+        FfiConverterOptionString.lower(`passphrase`), $0)
+}
+}
+
+
+
+public func `version`()  -> String {
+    return try!  FfiConverterString.lift(
+        try! rustCall() {
+    _uniffi_matrix_sdk_crypto_ffi_version_364($0)
+}
+    )
+}
+
+public func `vodozemacVersion`()  -> String {
+    return try!  FfiConverterString.lift(
+        try! rustCall() {
+    _uniffi_matrix_sdk_crypto_ffi_vodozemac_version_48d4($0)
+}
+    )
+}
 
 /**
  * Top level initializers and tear down methods.
