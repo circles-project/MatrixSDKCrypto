@@ -5,7 +5,7 @@ import PackageDescription
 
 let version = "0.3.13.3"
 let url = "https://gitlab.futo.org/api/v4/projects/125/packages/generic/matrix-sdk-crypto-ffi-\(version)/\(version)/MatrixSDKCryptoFFI.zip"
-let checksum = "c97f4b721c86e05965386a9a232617c56be78dc99073ac0e84654417d1867bed"
+let checksum = "009543741002add0b221c6316c98d70ce0206a6c53476feee7274c66f9d2fb72"
 
 let package = Package(
     name: "MatrixSDKCrypto",
@@ -32,7 +32,7 @@ let package = Package(
         /*
             Apparently we can't build our Swift package library directly from the FFI target.
             We need a sort of intermediate build target as a go-between.
-            This technique comes from the Matrix Rust components package: 
+            This technique comes from the Matrix Rust components package:
             https://github.com/matrix-org/matrix-rust-components-swift/blob/f4ff25f54c7e854fa1498f6dfd7bedca8c0ed260/Package.swift#L32
         */
         .target(
