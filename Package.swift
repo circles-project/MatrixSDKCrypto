@@ -3,9 +3,9 @@
 
 import PackageDescription
 
-let version = "0.3.13.4"
+let version = "0.3.13.5"
 let url = "https://gitlab.futo.org/api/v4/projects/125/packages/generic/matrix-sdk-crypto-ffi-\(version)/\(version)/MatrixSDKCryptoFFI.zip"
-let checksum = "009543741002add0b221c6316c98d70ce0206a6c53476feee7274c66f9d2fb72"
+let checksum = "1a1b4e2acf19be4e4979fd29d7e4197f3bc735a63f344c55f2f4fd3a20633ebb"
 
 let package = Package(
     name: "MatrixSDKCrypto",
