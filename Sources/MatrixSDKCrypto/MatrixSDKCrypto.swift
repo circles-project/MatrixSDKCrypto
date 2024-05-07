@@ -5310,6 +5310,10 @@ public struct Device {
      * since epoch.
      */
     public var firstTimeSeenTs: UInt64
+    /**
+     * Whether or not the device is a dehydrated device.
+     */
+    public var dehydrated: Bool
 
     // Default memberwise initializers are never public by default, so we
     // declare one manually.
@@ -5345,7 +5349,10 @@ public struct Device {
         /**
          * The first time this device was seen in local timestamp, milliseconds
          * since epoch.
-         */firstTimeSeenTs: UInt64) {
+         */firstTimeSeenTs: UInt64, 
+        /**
+         * Whether or not the device is a dehydrated device.
+         */dehydrated: Bool) {
         self.userId = userId
         self.deviceId = deviceId
         self.keys = keys
@@ -5355,6 +5362,7 @@ public struct Device {
         self.locallyTrusted = locallyTrusted
         self.crossSigningTrusted = crossSigningTrusted
         self.firstTimeSeenTs = firstTimeSeenTs
+        self.dehydrated = dehydrated
     }
 }
 
@@ -5388,6 +5396,9 @@ extension Device: Equatable, Hashable {
         if lhs.firstTimeSeenTs != rhs.firstTimeSeenTs {
             return false
         }
+        if lhs.dehydrated != rhs.dehydrated {
+            return false
+        }
         return true
     }
 
@@ -5401,6 +5412,7 @@ extension Device: Equatable, Hashable {
         hasher.combine(locallyTrusted)
         hasher.combine(crossSigningTrusted)
         hasher.combine(firstTimeSeenTs)
+        hasher.combine(dehydrated)
     }
 }
 
@@ -5417,7 +5429,8 @@ public struct FfiConverterTypeDevice: FfiConverterRustBuffer {
                 isBlocked: FfiConverterBool.read(from: &buf), 
                 locallyTrusted: FfiConverterBool.read(from: &buf), 
                 crossSigningTrusted: FfiConverterBool.read(from: &buf), 
-                firstTimeSeenTs: FfiConverterUInt64.read(from: &buf)
+                firstTimeSeenTs: FfiConverterUInt64.read(from: &buf), 
+                dehydrated: FfiConverterBool.read(from: &buf)
         )
     }
 
@@ -5431,6 +5444,7 @@ public struct FfiConverterTypeDevice: FfiConverterRustBuffer {
         FfiConverterBool.write(value.locallyTrusted, into: &buf)
         FfiConverterBool.write(value.crossSigningTrusted, into: &buf)
         FfiConverterUInt64.write(value.firstTimeSeenTs, into: &buf)
+        FfiConverterBool.write(value.dehydrated, into: &buf)
     }
 }
 
